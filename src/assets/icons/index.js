@@ -1,0 +1,15 @@
+export const Icons = {
+    marker: require('./marker.png'),
+    cardChip: require('./cardChip.png'),
+    cardMenu: require('./cardMenu.png'),
+    Bed: require('./bed.png'),
+    Motorcycle: require('./Motorcycle.png'),
+    Boxes: require('./Boxes.png'),
+    Appliances: require('./Appliances.png'),
+    Helper: require('./Helper.png'),
+    helperGroup:require('./helperGroup.png'),
+    Bike:require('./bike.png'),
+    Boats:require('./boat.png'),
+    TV:require('./tv.png'),
+    Construction:require('./construction.png'),
+}

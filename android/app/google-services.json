@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "53101824871",
+    "project_id": "bulky-49e60",
+    "storage_bucket": "bulky-49e60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53101824871:android:b659273f298cd4afb53dc2",
+        "android_client_info": {
+          "package_name": "com.bulky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53101824871-lbir9tkfrssdtq39f9g2nuuv84ga4e22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bulky",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "53101824871-h7mf8obbachc3eq4mhvubmfdm0mhg3gl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABmoW6NpCcqANT6HJN8P6jolOqDipkzUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53101824871-h7mf8obbachc3eq4mhvubmfdm0mhg3gl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "53101824871-htigjnobvujcp3bq5pfm9p4aotur40h8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bulky"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

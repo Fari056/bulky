@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Brother1816-Black.ttf",
+      "sha1": "7f996adc66554823ebef06b379626691f9677eb7"
+    },
+    {
+      "path": "src/assets/fonts/Brother1816-Bold.ttf",
+      "sha1": "8fa3695815b661febe8116e4bf4c1e81d4495a87"
+    },
+    {
+      "path": "src/assets/fonts/Brother1816-ExtraBold.ttf",
+      "sha1": "ab62b44c28584aca581c31c4337179884cd479c2"
+    },
+    {
+      "path": "src/assets/fonts/Brother1816-Light.ttf",
+      "sha1": "5044faa3ef13e7feb5eb8fc9c88b45c0992f9134"
+    },
+    {
+      "path": "src/assets/fonts/Brother1816-Medium.ttf",
+      "sha1": "63e4ccf441b98cf59d9d6df5c7352e966ae82b15"
+    },
+    {
+      "path": "src/assets/fonts/Brother1816-Regular.ttf",
+      "sha1": "5c7df7599662c5023e5eb91d84ef7a7b75828509"
+    }
+  ]
+}
