@@ -62,15 +62,15 @@ const SpecificItem = ({ route, navigation }) => {
       images: imageUrls,
       selectedItem: data[selected],
     };
-     const Index = itemdetails.findIndex(
-       (existingItem) => existingItem.id === item.id
-     );
+    const Index = itemdetails.findIndex(
+      (existingItem) => existingItem.id === item.id
+    );
 
-     if (Index !== -1) {
-       itemdetails[Index] = updatedItem;
-     } else {
-       itemdetails.push(updatedItem);
-     }
+    if (Index !== -1) {
+      itemdetails[Index] = updatedItem;
+    } else {
+      itemdetails.push(updatedItem);
+    }
     navigate(SCREEN.SelectedItems, {
       item: updatedItem,
       pickupdetails,

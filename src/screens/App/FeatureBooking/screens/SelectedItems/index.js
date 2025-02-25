@@ -4,81 +4,81 @@ import { ComponentWrapper, DueButtons, LargeText, MainHeader, MainWrapper, Regul
 import { SCREEN, colors, fontFamily } from '../../../../../constants'
 import { SelectedItemCard } from '../../components'
 const SelectedItems = ({ navigation, route }) => {
-const {
-  item,
-  pickupdetails,
-  destinationdetails,
-  pickuppoint,
-  destination,
-  itemdetails = [],
-  selectedItems,
-  selectedOption,
-  isEditMode,
-  deliverydetails,
-  date,
-  time,
-} = route.params;
+  const {
+    item,
+    pickupdetails,
+    destinationdetails,
+    pickuppoint,
+    destination,
+    itemdetails = [],
+    selectedItems,
+    selectedOption,
+    isEditMode,
+    deliverydetails,
+    date,
+    time,
+  } = route.params;
   const { navigate, goBack } = navigation
   const [data, setData] = useState(itemdetails);
 
-   useEffect(() => {
-     if (item) {
-       setData((prevData) => {
-         const existingItemIndex = prevData.findIndex(
-           (existingItem) => existingItem.id === item.id
-         );
-         const newData =
-           existingItemIndex !== -1
-             ? prevData.map((existingItem, index) =>
-                 index === existingItemIndex ? item : existingItem
-               )
-             : [...prevData, item];
-           return newData;
-       });
-     }
-   }, [item]);
+  useEffect(() => {
+    if (item) {
+      setData((prevData) => {
+        const existingItemIndex = prevData.findIndex(
+          (existingItem) => existingItem.id === item.id
+        );
+        const newData =
+          existingItemIndex !== -1
+            ? prevData.map((existingItem, index) =>
+              index === existingItemIndex ? item : existingItem
+            )
+            : [...prevData, item];
+        return newData;
+      });
+    }
+  }, [item]);
   const handleDeleteItem = (id) => {
     setData((prevData) => prevData.filter(item => item.id !== id));
   };
-   const edit = () => {
-     const screenMap = {
-       Appliances: SCREEN.Appliances,
-       Construction: SCREEN.Construction,
-       TV: SCREEN.TV,
-       Motorcycle: SCREEN.Motorcycle,
-       Boats: SCREEN.Boats,
-       Boxes: SCREEN.Boxes,
-       Bike: SCREEN.Bike,
-       Bed: SCREEN.SpecificItem,
-     };
-     const screenName = screenMap[item?.title] || SCREEN.Default;
-     navigate(screenName, {
-       item: {
-         ...item,
-         selectedTVSize: selectedOption,
-       },
-       pickupdetails,
-       destinationdetails,
-       pickuppoint,
-       destination,
-       itemdetails: data,
-       selectedItems,
-       isEditMode,
-     });
-   };
-    const sub = () => {
-      const nextScreen = isEditMode ? SCREEN.Summery : SCREEN.AddHelpers;
-      navigation.navigate(nextScreen, {
-        pickupdetails,
-        destinationdetails,
-        itemdetails: data,
-        pickuppoint,
-        destination,
-        deliverydetails,
-        date,
-        time,
-      });
+  const edit = () => {
+    const screenMap = {
+      Appliances: SCREEN.Appliances,
+      Construction: SCREEN.Construction,
+      TV: SCREEN.TV,
+      Motorcycle: SCREEN.Motorcycle,
+      Boats: SCREEN.Boats,
+      Boxes: SCREEN.Boxes,
+      Bike: SCREEN.Bike,
+      Bed: SCREEN.SpecificItem,
     };
+    const screenName = screenMap[item?.title] || SCREEN.Default;
+    navigate(screenName, {
+      item: {
+        ...item,
+        selectedTVSize: selectedOption,
+      },
+      pickupdetails,
+      destinationdetails,
+      pickuppoint,
+      destination,
+      itemdetails: data,
+      selectedItems,
+      isEditMode,
+    });
+  };
+  const sub = () => {
+    const nextScreen = isEditMode ? SCREEN.Summery : SCREEN.AddHelpers;
+    navigation.navigate(nextScreen, {
+      pickupdetails,
+      destinationdetails,
+      itemdetails: data,
+      pickuppoint,
+      destination,
+      deliverydetails,
+      date,
+      time,
+    });
+  };
   return (
     <MainWrapper>
       <ComponentWrapper>

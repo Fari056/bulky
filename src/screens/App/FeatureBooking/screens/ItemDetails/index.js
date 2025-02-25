@@ -18,35 +18,35 @@ const ItemDetails = ({ navigation, route }) => {
     isEditMode,
   } = route.params;
   const { navigate, onSave } = navigation
-    const scrn_map = {
-      Bed: SCREEN.SpecificItem
-      //  || SCREEN.Bed
-       ,
-      Bike: SCREEN.Bike,
-      Boxes: SCREEN.Boxes,
-      Boats: SCREEN.Boats,
-      Motorcycle: SCREEN.Motorcycle,
-      TV: SCREEN.TV,
-      Construction: SCREEN.Construction,
-      Appliances: SCREEN.Appliances,
-    };
-      const press = (item) => {
-        const screen = scrn_map[item.type];
-        if (screen) {
-          navigate(screen, {
-            pickupdetails,
-            destinationdetails,
-            item,
-            itemdetails,
-            pickuppoint,
-            destination,
-            isEditMode,
-            deliverydetails,
-            date,
-            time,
-          });
-        }
-      };
+  const scrn_map = {
+    Bed: SCREEN.SpecificItem
+    //  || SCREEN.Bed
+    ,
+    Bike: SCREEN.Bike,
+    Boxes: SCREEN.Boxes,
+    Boats: SCREEN.Boats,
+    Motorcycle: SCREEN.Motorcycle,
+    TV: SCREEN.TV,
+    Construction: SCREEN.Construction,
+    Appliances: SCREEN.Appliances,
+  };
+  const press = (item) => {
+    const screen = scrn_map[item.type];
+    if (screen) {
+      navigate(screen, {
+        pickupdetails,
+        destinationdetails,
+        item,
+        itemdetails,
+        pickuppoint,
+        destination,
+        isEditMode,
+        deliverydetails,
+        date,
+        time,
+      });
+    }
+  };
   return (
     <MainWrapper>
       <ComponentWrapper>

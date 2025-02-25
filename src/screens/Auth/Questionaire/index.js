@@ -47,8 +47,9 @@ export default Questionaire
 
 const styles = StyleSheet.create({
     image: {
-        height: height(67),
-        width: '100%'
+        height: height(63),
+        width: '100%',
+        // position: 'absolute',
     },
     footer: {
         position: 'absolute',

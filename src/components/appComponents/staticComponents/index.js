@@ -844,7 +844,7 @@ export const SmallTitleWithDesc = ({
   locationStyle,
 }) => {
   return (
-    <Wrapper style={{ marginLeft: width(3) }}>
+    <Wrapper style={{ marginLeft: width(3), width: width(75), }}>
       <MediumText style={[styles.locationTitle, titleStyle]}>
         {title}
       </MediumText>

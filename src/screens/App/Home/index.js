@@ -8,7 +8,7 @@ import { useData } from './hooks'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { useMap } from '../../../hooks'
 import { Pin, Pin2 } from '../../../assets'
-import { getToken, request_Permission, foreground_Listener,background_Listener, Notification } from '../../../services'
+import { getToken, request_Permission, foreground_Listener, background_Listener, Notification } from '../../../services'
 import { getCurrentUserId } from '../../../backend/auth'
 import { saveData } from '../../../backend/utility'
 export const ClientHome = ({ navigation }) => {
@@ -24,26 +24,26 @@ export const ClientHome = ({ navigation }) => {
     // console.log(iconSize)
     useEffect(() => {
         const res = async () => {
-          await GetPosition();
-          await request_Permission();
-          await token_();
-          const unsub = foreground_Listener();
-          background_Listener();
-          Notification();
-          return () => unsub();
+            await GetPosition();
+            await request_Permission();
+            await token_();
+            const unsub = foreground_Listener();
+            background_Listener();
+            Notification();
+            return () => unsub();
         };
         res();
     }, [])
-   const token_ = async () => {
-     try {
-       let token = await getToken();
-       let uid = await getCurrentUserId();
-       const res = await saveData("users", uid, { token });
-       console.log("saved", res);
-     } catch (error) {
-       console.error("Error in token_ function:", error);
-     }
-   };
+    const token_ = async () => {
+        try {
+            let token = await getToken();
+            let uid = await getCurrentUserId();
+            const res = await saveData("users", uid, { token });
+            console.log("saved", res);
+        } catch (error) {
+            console.error("Error in token_ function:", error);
+        }
+    };
     return (
         <MainWrapper>
             <HomeHeader
