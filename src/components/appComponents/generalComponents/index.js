@@ -188,7 +188,7 @@ export const FormText = ({ Boxes, onChange, boxesError }) => {
 export const CheckBoxItem = ({ title, description, value, onpress }) => {
   return (
     <>
-      <RowWrapper>
+      <RowWrapperBasic>
         <CheckBox
           checked={value}
           onPress={onpress}
@@ -200,7 +200,7 @@ export const CheckBoxItem = ({ title, description, value, onpress }) => {
             {description}
           </RegularText>
         </View>
-      </RowWrapper>
+      </RowWrapperBasic>
     </>
   );
 };

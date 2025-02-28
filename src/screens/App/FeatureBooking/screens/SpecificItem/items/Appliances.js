@@ -1,9 +1,10 @@
-import { StyleSheet, FlatList, Image , ScrollView} from "react-native";
-import React,{useState} from "react";
+import React, { useState } from "react";
+import { FlatList, Image, ScrollView, StyleSheet } from "react-native";
+import { width } from "react-native-dimension";
+import ImagePicker from "react-native-image-crop-picker";
 import {
   ComponentWrapper,
   DueButtons,
-  LargeText,
   MainHeader,
   MainWrapper,
   MediumText,
@@ -11,17 +12,12 @@ import {
   RowWrapper,
   Spacer,
   TextInputSearch,
-  Wrapper,
+  Wrapper
 } from "../../../../../../components";
-import { totalSize, width, height } from "react-native-dimension";
-import { AddImage, ItemDetailCard } from "../../../components";
-import { uniqueID } from "../../../../../../backend/utility";
-import ImageCropPicker from "react-native-image-crop-picker";
+import { SizeOptions } from "../../../../../../components/appComponents/generalComponents";
 import { SCREEN, colors } from "../../../../../../constants";
-import ImagePicker from "react-native-image-crop-picker";
-import { uploadFile } from "../../../../../../backend/utility";
 import { ToastError } from "../../../../../../utilities";
-import { Check_Box, SizeOptions } from "../../../../../../components/appComponents/generalComponents";
+import { AddImage, ItemDetailCard } from "../../../components";
 const Data = [
   { id: "1", title: "Refrigerator ", count: 1 },
   { id: "2", title: "Stove/Oven", count: 1 },
@@ -29,7 +25,7 @@ const Data = [
   { id: "4", title: "Dishwasher", count: 1 },
   { id: "5", title: "Hot water heater", count: 1 },
 ];
-const Appliances = ({ route, navigation }) => {
+export const Appliances = ({ route, navigation }) => {
   const {
     item,
     pickupdetails,
@@ -42,46 +38,46 @@ const Appliances = ({ route, navigation }) => {
     date,
     time,
   } = route.params;
-   const { navigate, goBack } = navigation;
+  const { navigate, goBack } = navigation;
   const [data, setData] = useState(Data);
-   const [selectedSizes, setSelectedSizes] = useState({
-     small: false,
-     medium: false,
-     large: false,
-     extraLarge: false,
-   });
+  const [selectedSizes, setSelectedSizes] = useState({
+    small: false,
+    medium: false,
+    large: false,
+    extraLarge: false,
+  });
   const [selected, setSelected] = useState(null);
   const { title } = route?.params?.item ?? false;
-   const [imageUrls, setImageUrls] = useState(item?.images || []);
- const handleImagePicker = () => {
-   ImagePicker.openPicker({
-     multiple: true,
-     mediaType: "photo",
-   }).then(async (selectedImages) => {
-     let count = [...imageUrls, ...selectedImages]?.length;
-     if (count > 3) {
-       ToastError("up to 3 images are allowed");
-       return;
-     }
-     setImageUrls((prevUrls) => [...prevUrls, ...selectedImages]);
-   });
- };
+  const [imageUrls, setImageUrls] = useState(item?.images || []);
+  const handleImagePicker = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      mediaType: "photo",
+    }).then(async (selectedImages) => {
+      let count = [...imageUrls, ...selectedImages]?.length;
+      if (count > 3) {
+        ToastError("up to 3 images are allowed");
+        return;
+      }
+      setImageUrls((prevUrls) => [...prevUrls, ...selectedImages]);
+    });
+  };
 
- const handleIncrement = (index) => {
-   const newData = [...data];
-   newData[index].count += 1;
-   setData(newData);
- };
+  const handleIncrement = (index) => {
+    const newData = [...data];
+    newData[index].count += 1;
+    setData(newData);
+  };
 
- const handleDecrement = (index) => {
-   const newData = [...data];
-   if (newData[index].count > 1) {
-     newData[index].count -= 1;
-     setData(newData);
-   }
- };
- const handleContinue = () => {
-   const selectedItems = data.filter((item, index) => index === selected);
+  const handleDecrement = (index) => {
+    const newData = [...data];
+    if (newData[index].count > 1) {
+      newData[index].count -= 1;
+      setData(newData);
+    }
+  };
+  const handleContinue = () => {
+    const selectedItems = data.filter((item, index) => index === selected);
     const updatedItem = {
       ...item,
       selectedItems,
@@ -97,21 +93,21 @@ const Appliances = ({ route, navigation }) => {
         index === Index ? updatedItem : existingItem
       );
     } else {
-       newItem = [...itemdetails, updatedItem];
+      newItem = [...itemdetails, updatedItem];
     }
-   navigate(SCREEN.SelectedItems, {
-     item: updatedItem,
-     pickupdetails,
-     destinationdetails,
-     itemdetails: newItem,
-     pickuppoint,
-     destination,
-     isEditMode,
-     deliverydetails,
-     date,
-     time,
-   });
- };
+    navigate(SCREEN.SelectedItems, {
+      item: updatedItem,
+      pickupdetails,
+      destinationdetails,
+      itemdetails: newItem,
+      pickuppoint,
+      destination,
+      isEditMode,
+      deliverydetails,
+      date,
+      time,
+    });
+  };
 
   return (
     <MainWrapper>

@@ -33,18 +33,19 @@ const ItemDetails = ({ navigation, route }) => {
   const press = (item) => {
     const screen = scrn_map[item.type];
     if (screen) {
-      navigate(screen, {
-        pickupdetails,
-        destinationdetails,
-        item,
-        itemdetails,
-        pickuppoint,
-        destination,
-        isEditMode,
-        deliverydetails,
-        date,
-        time,
-      });
+      navigate(SCREEN.Products, { type: item.type })
+      // navigate(screen, {
+      //   pickupdetails,
+      //   destinationdetails,
+      //   item,
+      //   itemdetails,
+      //   pickuppoint,
+      //   destination,
+      //   isEditMode,
+      //   deliverydetails,
+      //   date,
+      //   time,
+      // });
     }
   };
   return (

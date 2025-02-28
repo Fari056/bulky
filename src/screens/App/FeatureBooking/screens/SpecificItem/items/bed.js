@@ -1,52 +1,35 @@
-import { StyleSheet, FlatList, Dimensions } from "react-native";
 import React, { useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+import { totalSize, width } from "react-native-dimension";
 import {
   ComponentWrapper,
-  DueButtons,
   MainHeader,
   MainWrapper,
-  RegularText,
-  RowWrapper,
   RadioButton,
+  RegularText,
   Spacer,
   TextInputSearch,
-  SelectableButtons,
-  Wrapper,
+  Wrapper
 } from "../../../../../../components";
-import { SelectableItem } from "../../../../../../components/appComponents/generalComponents";
-import { SCREEN, colors } from "../../../../../../constants";
-import { totalSize, width, height } from "react-native-dimension";
-const Bed = ({ route, navigation }) => {
-  const {
-    item,
-    pickupdetails,
-    destinationdetails,
-    itemdetails,
-    pickuppoint,
-    destination,
-  } = route.params;
-  const [selectedOption, setSelectedOption] = useState(null);
+import { colors } from "../../../../../../constants";
+export const Bed = ({ item, selectedOption, setSelectedOption }) => {
+  let { title } = item
+
+  // const [selectedOption, setSelectedOption] = useState(null);
   const options = [
     { id: "1", label: "Headboard" },
     { id: "2", label: "Footboard" },
     { id: "3", label: " California King" },
   ];
-  const { navigate, goBack } = navigation;
-  const { title } = route?.params?.item ?? false;
+
   const handleContinue = () => {
-    navigate(SCREEN.SelectedItems, {
-      //   item: updatedItem,
-      //   pickupdetails,
-      //   destinationdetails,
-      //   itemdetails,
-      //   pickuppoint,
-      //   destination,
-    });
+    // navigate(SCREEN.SelectedItems, {
+    // });
   };
   const renderItem = ({ item }) => (
     <Wrapper style={styles.itemContainer}>
       <RadioButton
-        title={item.label}
+        title={item?.label}
         active={selectedOption === item.label}
         onPress={() => setSelectedOption(item.label)}
       />
@@ -56,7 +39,7 @@ const Bed = ({ route, navigation }) => {
   return (
     <MainWrapper>
       <ComponentWrapper>
-        <MainHeader title={"Item Details"} />
+        {/* <MainHeader title={"Item Details"} /> */}
         <Spacer isBasic />
         <RegularText style={styles.text}>
           Select Items that you want to deliver
@@ -70,11 +53,11 @@ const Bed = ({ route, navigation }) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
       />
-      <DueButtons
+      {/* <DueButtons
         onPress={handleContinue}
         text={"continue"}
         onBack={() => goBack()}
-      />
+      /> */}
     </MainWrapper>
   );
 };
