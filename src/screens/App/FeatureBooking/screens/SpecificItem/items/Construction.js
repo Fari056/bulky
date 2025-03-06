@@ -1,69 +1,49 @@
-import { StyleSheet, FlatList, Dimensions } from "react-native";
-import React, { useState } from "react";
+import React from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import { totalSize, width } from "react-native-dimension";
+import { options } from "../../../../../../../tempData";
 import {
   ComponentWrapper,
-  DueButtons,
-  MainHeader,
   MainWrapper,
-  RegularText,
-  RowWrapper,
   RadioButton,
+  RegularText,
   Spacer,
   TextInputSearch,
-  SelectableButtons,
-  Wrapper,
+  Wrapper
 } from "../../../../../../components";
-import { SelectableItem } from "../../../../../../components/appComponents/generalComponents";
-import { SCREEN, colors } from "../../../../../../constants";
-import { totalSize, width, height } from "react-native-dimension";
-import { options } from "../../../../../../../tempData";
-const Construction = ({ route, navigation }) => {
-  const {
-    item,
-    pickupdetails,
-    destinationdetails,
-    itemdetails = [],
-    pickuppoint,
-    destination,
-    isEditMode,
-    deliverydetails,
-    date,
-    time,
-  } = route.params;
-  const [selectedOption, setSelectedOption] = useState(
-    item?.selectedOption || null
-  );
-  const { navigate, goBack } = navigation;
-  const { title } = route?.params?.item ?? false;
-  const handleContinue = () => {
-     const updatedItem = {
-       ...item,
-       selectedOption,
-     };
-       const existing = itemdetails.findIndex(
-         (existingItem) => existingItem.id === item.id
-       );
-       let updated;
-       if (existing !== -1) {
-         updated = itemdetails.map((existingItem, index) =>
-           index === existing ? updatedItem : existingItem
-         );
-       } else {
-         updated = [...itemdetails, updatedItem];
-       }
-    navigate(SCREEN.SelectedItems, {
-      item: updatedItem,
-      pickupdetails,
-      destinationdetails,
-      itemdetails: updated,
-      pickuppoint,
-      destination,
-      isEditMode,
-      deliverydetails,
-      date,
-      time,
-    });
-  };
+import { colors } from "../../../../../../constants";
+import { heightPercentageToDP } from "react-native-responsive-screen";
+const Construction = ({ title, selectedOption, setSelectedOption }) => {
+
+  // const handleContinue = () => {
+  //    const updatedItem = {
+  //      ...item,
+  //      selectedOption,
+  //    };
+  //      const existing = itemdetails.findIndex(
+  //        (existingItem) => existingItem.id === item.id
+  //      );
+  //      let updated;
+  //      if (existing !== -1) {
+  //        updated = itemdetails.map((existingItem, index) =>
+  //          index === existing ? updatedItem : existingItem
+  //        );
+  //      } else {
+  //        updated = [...itemdetails, updatedItem];
+  //      }
+  //   navigate(SCREEN.SelectedItems, {
+  //     item: updatedItem,
+  //     pickupdetails,
+  //     destinationdetails,
+  //     itemdetails: updated,
+  //     pickuppoint,
+  //     destination,
+  //     isEditMode,
+  //     deliverydetails,
+  //     date,
+  //     time,
+  //   });
+  // };
   const renderItem = ({ item }) => (
     <Wrapper style={styles.itemContainer}>
       <RadioButton
@@ -77,7 +57,6 @@ const Construction = ({ route, navigation }) => {
   return (
     <MainWrapper>
       <ComponentWrapper>
-        <MainHeader title={"Item Details"} />
         <Spacer isBasic />
         <RegularText style={styles.text}>
           Select Items that you want to deliver
@@ -86,15 +65,15 @@ const Construction = ({ route, navigation }) => {
         <TextInputSearch left editable={false} value={title} />
       </ComponentWrapper>
       <FlatList
+        ListFooterComponent={
+          <><Spacer isDoubleBase />
+            <Spacer isDoubleBase />
+          </>
+        }
         data={options}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
-      />
-      <DueButtons
-        onPress={handleContinue}
-        text={"continue"}
-        onBack={() => goBack()}
       />
     </MainWrapper>
   );

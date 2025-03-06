@@ -233,12 +233,15 @@ export const SizeOptions = ({ onSelectionChange }) => {
   });
   const handleCheck = (size) => {
     const newSizes = {
-      ...selectedSizes,
-      [size]: !selectedSizes[size],
+      // small: false,
+      // medium: false,
+      // large: false,
+      // extraLarge: false,
+      [size]: true
     };
-    setSelectedSizes(newSizes);
+    setSelectedSizes(size);
     if (typeof onSelectionChange === "function") {
-      onSelectionChange(newSizes);
+      onSelectionChange(size);
     } else {
       console.warn("onSelectionChange is not a function");
     }
@@ -248,14 +251,14 @@ export const SizeOptions = ({ onSelectionChange }) => {
     <Wrapper style={styles.optionsContainer_}>
       <Wrapper style={styles.optionRow_}>
         <CheckBox
-          checked={selectedSizes.small}
+          checked={selectedSizes == "small"}
           onPress={() => handleCheck("small")}
           title={
             <RegularText style={{ color: colors.black }}>Small</RegularText>
           }
         />
         <CheckBox
-          checked={selectedSizes.medium}
+          checked={selectedSizes == "medium"}
           onPress={() => handleCheck("medium")}
           title={
             <RegularText style={{ color: colors.black }}>Medium</RegularText>
@@ -264,14 +267,14 @@ export const SizeOptions = ({ onSelectionChange }) => {
       </Wrapper>
       <Wrapper style={styles.optionRow_}>
         <CheckBox
-          checked={selectedSizes.large}
+          checked={selectedSizes == "large"}
           onPress={() => handleCheck("large")}
           title={
             <RegularText style={{ color: colors.black }}>Large</RegularText>
           }
         />
         <CheckBox
-          checked={selectedSizes.extraLarge}
+          checked={selectedSizes == "extraLarge"}
           onPress={() => handleCheck("extraLarge")}
           title={
             <RegularText style={{ color: colors.black }}>

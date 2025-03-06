@@ -40,8 +40,8 @@ const formatAddressText = (text, wordLimitPerLine = 3) => {
   return formattedText.trim();
 };
 export const RequestCard = ({
-  name='',
-  photo='',
+  name = '',
+  photo = '',
   price,
   onPressCard,
   onPressIgnore,
@@ -61,7 +61,7 @@ export const RequestCard = ({
         <Spacer isSmall />
         <RowWrapper style={{ marginHorizontal: width(2) }}>
           <RowWrapperBasic>
-            <Avatar source={{ uri: photo ||'' }} />
+            <Avatar source={{ uri: photo || '' }} />
             <RegularText style={styles.userName}>{name}</RegularText>
           </RowWrapperBasic>
           <RowWrapperBasic>
@@ -188,7 +188,7 @@ export const BookingCard = ({ name, profileImage, booking, lineStyle, onPressCar
             <PrimaryImage size={totalSize(3)} source={Images.cash} />
             <MediumText
               style={styles.userName}
-            >{`$${booking?.deliverydetails?.totalcharges}`}</MediumText>
+            >{`$${booking?.deliverydetails?.totalcharges ?? booking?.deliverydetails?.totalCharges}`}</MediumText>
           </RowWrapperBasic>
         </RowWrapper>
         <Spacer isBasic />
@@ -390,7 +390,7 @@ export const BookingRequestCard = ({ item, onPress }) => {
 
 // Details
 export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
-  const itemDetails = item?.itemdetails || [];
+  const itemDetails = item?.items || [];
   const countImages = itemDetails.reduce((total, detail) => {
     return total + (detail.images ? detail.images.length : 0);
   }, 0);
@@ -405,11 +405,11 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
           </RegularText>
           <PrimaryImage size={totalSize(3)} source={Images.cash} />
           <MediumText style={styles.userName}>
-            ${item.deliverydetails.totalcharges}
+            ${item.deliverydetails.totalCharges}
           </MediumText>
         </RowWrapperBasic>
         <RowWrapperBasic>
-          <TouchableOpacity activeOpacity={0.8} onPress={onPresscall}>
+          <TouchableOpacity activeOpacity={0.8} onPress={onPressChat}>
             <Icon
               style={{ marginHorizontal: 15 }}
               name="chatbubbles-outline"
@@ -419,7 +419,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
             />
           </TouchableOpacity>
           <View></View>
-          <TouchableOpacity activeOpacity={0.8} onPress={onPressChat}>
+          <TouchableOpacity activeOpacity={0.8} onPress={onPresscall}>
             <Icon
               name="phone"
               type="simple-line-icon"
@@ -496,10 +496,10 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
         <View style={styles.itemRowd}>
           <RowWrapper style={{ marginHorizontal: width(2) }}>
             <RowWrapperBasic>
-              {itemDetails.map((detail, index) => (
+              {item?.items.map((detail, index) => (
                 <RowWrapper key={index} style={{ marginHorizontal: 8 }}>
                   <RowWrapperBasic>
-                    {detail.images?.map((image, imgIndex) => (
+                    {detail?.images && detail?.images?.map((image, imgIndex) => (
                       <Image
                         key={imgIndex}
                         source={{ uri: image }}
@@ -511,7 +511,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
                       />
                     ))}
                     <MediumText style={styles.userName}>
-                      {detail.title}
+                      {detail?.type},
                     </MediumText>
                   </RowWrapperBasic>
                   <Spacer isSmall />
@@ -539,7 +539,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
         <RowWrapperBasic>
           <PrimaryImage size={totalSize(3)} source={Images.userGroup} />
           <MediumText style={styles.userName}>
-            {item.deliverydetails.helperscount} Helper
+            {item.deliverydetails.numHelpers} Helper
           </MediumText>
         </RowWrapperBasic>
         <RegularText style={styles.helperDescriptiond}>
@@ -550,7 +550,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
       <View style={styles.weightCardd}>
         <RowWrapperBasic>
           <PrimaryImage size={totalSize(3)} source={Images.kg} />
-          <MediumText style={styles.userName}>400 kg</MediumText>
+          <MediumText style={styles.userName}>{item.items.reduce((total, detail) => total + detail.weight, 0)} lb</MediumText>
         </RowWrapperBasic>
       </View>
     </ScrollView>

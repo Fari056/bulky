@@ -1,50 +1,33 @@
-import { StyleSheet, Text, View , ScrollView} from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import React, { useState } from 'react'
 import { ComponentWrapper, DueButtons, MainHeader, MainWrapper, Spacer, Wrapper } from '../../../../../components'
 import { SummeryDateTimeCard, SummeryHelperCard, SummeryProductCard, SummeryTitleCard } from '../../components'
 import { SCREEN } from '../../../../../constants'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
 const Summery = ({ navigation, route }) => {
-  const {
-    itemdetails,
-    pickupdetails,
-    destinationdetails,
-    deliverydetails = {},
-    date,
-    time,
-    pickuppoint,
-    destination,
-  } = route.params;
+
+  const request_redux = useSelector((state) => state.requestData)
+  const [data, setData] = useState(request_redux)
   const { navigate, goBack } = navigation
- const renderItemList = () => {
-   return (
-     <>
-       <SummeryTitleCard
-         title={"Items to deliver"}
-         onPress={() =>
-           navigate(SCREEN.ItemDetail, {
-             itemdetails,
-             pickupdetails,
-             destinationdetails,
-             deliverydetails,
-             date,
-             time,
-             pickuppoint,
-             destination,
-             isEditMode: true,
-           })
-         }
-       />
-       {itemdetails.map((item, index) => (
-         <View key={item.uniqueId}>
-           <SummeryProductCard item={item} title={item.title} />
-           {index < itemdetails.length - 1 && <Spacer isSmall />}
-         </View>
-       ))}
-       <Spacer isSmall />
-     </>
-   );
- };
+  console.log(data?.deliverydetails)
+  const renderItemList = () => {
+    return (
+      <>
+        <SummeryTitleCard
+          title={"Items to deliver"}
+          onPress={() => navigate(SCREEN.ItemDetail, { isEdit: true })}
+        />
+        {data?.items?.map((item, index) => (
+          <View key={item?.uniqueId}>
+            <SummeryProductCard item={item} title={item?.type} />
+            {index < data?.items?.length - 1 && <Spacer isSmall />}
+          </View>
+        ))}
+        <Spacer isSmall />
+      </>
+    );
+  };
   return (
     <MainWrapper>
       <ComponentWrapper>
@@ -54,58 +37,26 @@ const Summery = ({ navigation, route }) => {
         {renderItemList()}
         <SummeryTitleCard
           title={"Items to deliver"}
-          onPress={() =>
-            navigate(SCREEN.AddHelpers, {
-              itemdetails,
-              pickupdetails,
-              destinationdetails,
-              deliverydetails,
-              date,
-              time,
-              pickuppoint,
-              destination,
-              isEdit: true,
-            })
-          }
+          onPress={() => navigate(SCREEN.AddHelpers, { isEdit: true })}
         />
-        <SummeryHelperCard count={deliverydetails.helperscount || 0} />
+        <SummeryHelperCard count={data?.deliverydetails?.numHelpers || 0} />
         <Spacer isSmall />
         <SummeryTitleCard
           title={"Date & Time"}
           onPress={() =>
-            navigate(SCREEN.DeliveryDateTime, {
-              itemdetails,
-              pickupdetails,
-              destinationdetails,
-              deliverydetails,
-              date,
-              time,
-              pickuppoint,
-              destination,
-            })
+            navigate(SCREEN.DeliveryDateTime, { isEdit: true })
           }
         />
         <SummeryDateTimeCard
-          date={moment(date)?.format("DD MMM YYYY")}
-          time={moment(time)?.format("hh:mm A")}
+          date={moment(data?.date)?.format("DD MMM YYYY")}
+          time={moment(data?.time)?.format("hh:mm A")}
         />
       </ScrollView>
       <Spacer isBottomTabBarHeight={35} />
       <DueButtons
         text={"continue"}
         onBack={() => goBack()}
-        onPress={() =>
-          navigate(SCREEN.Bill, {
-            itemdetails,
-            pickupdetails,
-            destinationdetails,
-            deliverydetails,
-            date,
-            time,
-            pickuppoint,
-            destination,
-          })
-        }
+        onPress={() => navigate(SCREEN.Bill)}
       />
     </MainWrapper>
   );

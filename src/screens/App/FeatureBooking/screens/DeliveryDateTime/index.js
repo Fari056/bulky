@@ -14,18 +14,21 @@ import {
 import { SCREEN, colors, fontFamily, fontSize } from "../../../../../constants";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { heightPercentageToDP } from "react-native-responsive-screen";
+import { useDispatch, useSelector } from "react-redux";
+import { setRequestData } from "../../../../../redux/actions";
 
 const DeliveryDateTime = ({ navigation, route }) => {
-  const {
-    pickupdetails,
-    destinationdetails,
-    itemdetails,
-    pickuppoint,
-    destination,
-    deliverydetails,
-  } = route.params;
+  // const {
+  //   pickupdetails,
+  //   destinationdetails,
+  //   itemdetails,
+  //   pickuppoint,
+  //   destination,
+  //   deliverydetails,
+  // } = route.params;
   const { navigate, goBack } = navigation;
-
+  const request_redux = useSelector((state) => state.requestData)
+  const dispatch = useDispatch()
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -63,7 +66,7 @@ const DeliveryDateTime = ({ navigation, route }) => {
           title={"Date"}
           isButton
           buttonContentStyle={{ top: heightPercentageToDP(2), alignItems: 'flex-start' }}
-          placeholder={"07/24/23"}
+          placeholder={"Select Date"}
           value={date.toLocaleDateString()}
           editable={false}
           onPress={showDatepicker}
@@ -73,7 +76,7 @@ const DeliveryDateTime = ({ navigation, route }) => {
           title={"Time"}
           isButton
           buttonContentStyle={{ top: heightPercentageToDP(2), alignItems: 'flex-start' }}
-          placeholder={"15:30"}
+          placeholder={"Select Time"}
           value={time.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
@@ -91,19 +94,33 @@ const DeliveryDateTime = ({ navigation, route }) => {
       <DueButtons
         text={"continue"}
         onBack={() => goBack()}
-        onPress={() =>
-          navigate(SCREEN.Summery, {
-            pickuppoint,
-            destination,
-            itemdetails,
-            pickupdetails,
-            destinationdetails,
-            deliverydetails,
+        onPress={() => {
+          if (!date || !time) {
+            Alert.alert("Please select date and time")
+            return
+          }
+          let temp = {
+            ...request_redux,
             date: date,
             time: time,
-          })
-        }
+          }
+          dispatch(setRequestData(temp))
+          navigate(SCREEN.Summery)
+          console.log(date)
+        }}
+      // navigate(SCREEN.Summery, {
+      //   pickuppoint,
+      //   destination,
+      //   itemdetails,
+      //   pickupdetails,
+      //   destinationdetails,
+      //   deliverydetails,
+      //   date: date,
+      //   time: time,
+      // })
+      // }
       />
+
       {showDatePicker && (
         <DateTimePicker
           minimumDate={new Date()}

@@ -3,7 +3,7 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  Text,Linking
+  Text, Linking
 } from "react-native";
 import { BookingDetailCard } from "../../../../components";
 import { CancelRequestBottomSheet } from "../../../../components";
@@ -53,7 +53,7 @@ const BookingDetails = ({ route, navigation }) => {
             item={item}
             user={item?.user}
             onPresscall={() => Linking.openURL(`tel:0308912345`)}
-            onPressChat={() => navigate(SCREEN.Chat, { id: item.id })}
+            onPressChat={() => navigate(SCREEN.Chat, { receiver_id: item.id })}
           />
           <Text
             style={styles.cancelButton}

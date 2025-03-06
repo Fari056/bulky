@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { totalSize, width } from "react-native-dimension";
 import {
   ComponentWrapper,
-  MainHeader,
   MainWrapper,
   RadioButton,
   RegularText,
@@ -12,20 +11,8 @@ import {
   Wrapper
 } from "../../../../../../components";
 import { colors } from "../../../../../../constants";
-export const Bed = ({ item, selectedOption, setSelectedOption }) => {
-  let { title } = item
+export const Bed = ({ title, selectedOption, setSelectedOption, data }) => {
 
-  // const [selectedOption, setSelectedOption] = useState(null);
-  const options = [
-    { id: "1", label: "Headboard" },
-    { id: "2", label: "Footboard" },
-    { id: "3", label: " California King" },
-  ];
-
-  const handleContinue = () => {
-    // navigate(SCREEN.SelectedItems, {
-    // });
-  };
   const renderItem = ({ item }) => (
     <Wrapper style={styles.itemContainer}>
       <RadioButton
@@ -48,7 +35,7 @@ export const Bed = ({ item, selectedOption, setSelectedOption }) => {
         <TextInputSearch left editable={false} value={title} />
       </ComponentWrapper>
       <FlatList
-        data={options}
+        data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}

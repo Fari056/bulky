@@ -5,6 +5,7 @@ import { SCREEN, colors } from '../../../../../constants'
 import { ItemCard } from '../../components'
 import { totalSize } from 'react-native-dimension'
 import { Itemdata } from '../../../../../../tempData'
+import { useSelector } from 'react-redux'
 const ItemDetails = ({ navigation, route }) => {
   const {
     pickupdetails,
@@ -19,9 +20,7 @@ const ItemDetails = ({ navigation, route }) => {
   } = route.params;
   const { navigate, onSave } = navigation
   const scrn_map = {
-    Bed: SCREEN.SpecificItem
-    //  || SCREEN.Bed
-    ,
+    Bed: SCREEN.SpecificItem,
     Bike: SCREEN.Bike,
     Boxes: SCREEN.Boxes,
     Boats: SCREEN.Boats,
@@ -30,6 +29,7 @@ const ItemDetails = ({ navigation, route }) => {
     Construction: SCREEN.Construction,
     Appliances: SCREEN.Appliances,
   };
+
   const press = (item) => {
     const screen = scrn_map[item.type];
     if (screen) {

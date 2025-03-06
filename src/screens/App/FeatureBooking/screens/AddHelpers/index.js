@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, } from 'react-native'
-import React, { useState } from 'react'
-import { ComponentWrapper, DueButtons, Hrline, LargeText, MainHeader, MainWrapper, RegularText, Spacer } from '../../../../../components'
+import { ComponentWrapper, DueButtons, Hrline, LargeText, MainHeader, MainWrapper, Spacer } from '../../../../../components'
 import { SCREEN, colors, fontFamily, fontSize } from '../../../../../constants'
 import { HelperCard, HelperPriceCard, HelperTotalCard } from '../../components'
+import { useDispatch, useSelector } from 'react-redux'
+import { setRequestData } from '../../../../../redux/actions'
 
 const AddHelpers = ({ navigation, route }) => {
   const {
@@ -16,28 +18,56 @@ const AddHelpers = ({ navigation, route }) => {
     date,
     time,
   } = route.params;
+  const request_redux = useSelector((state) => state.requestData)
+  const dispatch = useDispatch()
   const { navigate, goBack } = navigation
   const [count, setCount] = useState(2)
+  const [data, setData] = useState(request_redux)
   const [price, setPrice] = useState(50);
   const pickupFloors = pickupdetails?.floors ?? 0;
   const destinationFloors = destinationdetails?.floors ?? 0;
   const total_charges = count * price;
-   const b = (screen) =>
-     navigate(screen, {
-       pickupdetails,
-       destinationdetails,
-       itemdetails,
-       pickuppoint,
-       destination,
-       deliverydetails: {
-         helperscount: count,
-         helperprice: price,
-         totalcharges: total_charges,
-       },
-       date,
-       time,
-       isEdit,
-     });
+
+
+  const b = (screen) => {
+
+    let temp = {
+      ...request_redux,
+      deliverydetails: {
+        numHelpers: count,
+        helperPrice: price,
+        totalCharges: total_charges,
+      }
+    }
+    dispatch(setRequestData(temp))
+    isEdit ? navigate(SCREEN.Summery) : navigate(SCREEN.DeliveryDateTime)
+    // navigate(screen, {
+    //   pickupdetails,
+    //   destinationdetails,
+    //   itemdetails,
+    //   pickuppoint,
+    //   destination,
+    //   deliverydetails: {
+    //     helperscount: count,
+    //     helperprice: price,
+    //     totalcharges: total_charges,
+    //   },
+    //   date,
+    //   time,
+    //   isEdit,
+    // });
+  }
+
+
+  const calculateTotalWeight = () => {
+    return data?.items?.reduce((total, item) => total + (parseFloat(item.weight) || 0), 0);
+  };
+  useEffect(() => {
+    setData(request_redux)
+    setCount(Math.ceil(totalWeight / 200))
+  }, [request_redux])
+
+  const totalWeight = calculateTotalWeight();
   return (
     <MainWrapper>
       <ComponentWrapper>
@@ -45,14 +75,14 @@ const AddHelpers = ({ navigation, route }) => {
         <Spacer isBasic />
         <Spacer isBasic />
         <Text style={styles.text}>
-          Your Total weight is <Text style={styles.boldText}>200lbs</Text> so
-          your required minimum <Text style={styles.boldText}>2 helper</Text>{" "}
+          Your Total weight is <Text style={styles.boldText}>{totalWeight}lbs</Text> so
+          your required minimum <Text style={styles.boldText}>{Math.ceil(totalWeight / 200)} helper</Text>{" "}
           for this delivery.
         </Text>
         <Spacer isBasic />
         <Spacer isSmall />
       </ComponentWrapper>
-      <HelperCard count={count} setCount={setCount} />
+      <HelperCard min={Math.ceil(totalWeight / 200)} count={count} setCount={setCount} />
       <Spacer isDoubleBase />
       <ComponentWrapper>
         <LargeText color={colors.appTextColor1}>Charges for helper</LargeText>
@@ -72,7 +102,7 @@ const AddHelpers = ({ navigation, route }) => {
       <DueButtons
         text={"continue"}
         onBack={() => goBack()}
-        onPress={() =>b(isEdit ? SCREEN.Summery : SCREEN.DeliveryDateTime)
+        onPress={() => b(isEdit ? SCREEN.Summery : SCREEN.DeliveryDateTime)
         }
       />
     </MainWrapper>
