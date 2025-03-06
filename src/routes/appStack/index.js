@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as App from "../../screens/App";
 import { SCREEN, colors } from "../../constants";
 import * as Driver from "../../screens/DriverSide";
+import { DeliveryList, DeliveryTracking } from "../../screens/App/UserScreen";
+import DriverTracking from "../../screens/DriverSide/DriverTracking";
 
 const Tab = createBottomTabNavigator();
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -18,8 +20,13 @@ const AppNavigation = () => {
       />
       <Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={SCREEN.clientHome}
+        initialRouteName={'DeliveryList'}
       >
+        <Screen name="DeliveryList" component={DeliveryList} />
+        <Screen name="DriverTracking" component={DriverTracking} />
+
+        {/* User Flow Screens */}
+        <Screen name="UserDeliveryTracking" component={DeliveryTracking} />
         <Screen name={SCREEN.clientHome} component={App.ClientHome} />
         <Screen
           name={SCREEN.enterPickupPoint}

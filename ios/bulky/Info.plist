@@ -41,6 +41,11 @@
 	<string>$(PRODUCT_NAME) needs access to your Microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires photo library access.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+    	<string>location</string>
+   		<string>fetch</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Brother-1816-Black.ttf</string>
