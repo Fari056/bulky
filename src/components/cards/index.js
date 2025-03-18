@@ -188,19 +188,19 @@ export const BookingCard = ({ name, profileImage, booking, lineStyle, onPressCar
             <PrimaryImage size={totalSize(3)} source={Images.cash} />
             <MediumText
               style={styles.userName}
-            >{`$${booking?.deliverydetails?.totalcharges ?? booking?.deliverydetails?.totalCharges}`}</MediumText>
+            >{`$${booking?.deliverydetails?.totalcharges ?? booking?.deliverydetails?.totalCharges}`}
+            </MediumText>
           </RowWrapperBasic>
         </RowWrapper>
         <Spacer isBasic />
         <Hrline style={[styles.line, lineStyle]} />
         <Spacer isBasic />
-        <RowWrapper style={{ alignItems: "flex-start" }}>
-          <Wrapper>
+        <RowWrapper style={{ alignItems: "flex-start", }}>
+          <Wrapper style={{ width: width(50), }}>
             <IconWithText
               onPress={onPressCard}
               iconSize={20}
-              style={{ width: width(60), }}
-              textstyle={{ width: width(50) }}
+              textstyle={{ width: width(45), }}
               color={colors.appTextColor2}
               iconName={"dot-fill"}
               iconType={"octicon"}
@@ -210,8 +210,7 @@ export const BookingCard = ({ name, profileImage, booking, lineStyle, onPressCar
             <Wrapper style={styles.vl} />
             <IconWithText
               onPress={onPressCard}
-              style={{ width: width(60), }}
-              textstyle={{ width: width(50) }}
+              textstyle={{ width: width(45) }}
               iconSize={20}
               color={colors.appTextColor2}
               iconName={"map-marker"}

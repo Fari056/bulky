@@ -10,7 +10,6 @@ const Summery = ({ navigation, route }) => {
   const request_redux = useSelector((state) => state.requestData)
   const [data, setData] = useState(request_redux)
   const { navigate, goBack } = navigation
-  console.log(data?.deliverydetails)
   const renderItemList = () => {
     return (
       <>

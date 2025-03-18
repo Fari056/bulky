@@ -1,7 +1,7 @@
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const stripe = require('stripe')('sk_test_51QU7NzHXn2HNJcrtnlKN8jWsV8JFIgCRDXYt5Yj9eM0ml9KISH58BrMiHyOhFUM2vEGJWppbzJgxJqi315VGMEhU00gDirwTN3');
+const stripe = require('stripe')(functions.config().stripe.secret);
 const logger = require("firebase-functions/logger");
 const { onRequest } = require("firebase-functions/v2/https");
 
@@ -81,7 +81,7 @@ exports.paymentSheet = functions.https.onRequest(async (req, res) => {
         // Create a PaymentIntent for the user
         const paymentIntent = await stripe.paymentIntents.create({
             amount: amount,
-            currency: 'eur',
+            currency: 'usd',
             customer: stripeId,
             payment_method_types: ['card'],
             // automatic_payment_methods: {

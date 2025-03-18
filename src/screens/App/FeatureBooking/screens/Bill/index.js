@@ -1,25 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { StyleSheet, Text } from 'react-native'
+import { height } from 'react-native-dimension'
+import { useSelector } from 'react-redux'
+import { DocRef, saveData, uniqueID, uploadProfileImage } from "../../../../../backend/utility"
 import { ComponentWrapper, DueButtons, Hrline, LargeText, MainHeader, MainWrapper, PaymentBottomSheet, Spacer } from '../../../../../components'
 import { SCREEN, colors, fontFamily, fontSize } from '../../../../../constants'
 import { HelperPriceCard, HelperTotalCard } from '../../components'
-import { height } from 'react-native-dimension'
-import {
-  DocRef,
-  saveData,
-  saveDataWithoutDocId,
-  uniqueID,
-  uploadFile,
-  uploadProfileImage
-} from "../../../../../backend/utility";
-import { getCurrentUserId } from '../../../../../backend/auth'
-import { useSelector } from 'react-redux'
+import { useStripe } from '../../../../../hooks'
+import { ToastError } from '../../../../../utilities'
+
 const Bill = ({ navigation, route }) => {
+
   const { navigate, goBack } = navigation
   const request_redux = useSelector(state => state?.requestData)
   const user_redux = useSelector(state => state?.user)
   const [userid, setUserId] = useState(user_redux?.id)
   const [loading, setLoading] = useState(false)
+
+  const { ReqStripePayment } = useStripe();
 
   const RBSheet1 = useRef();
   let delivery_charges = request_redux?.deliverydetails?.totalCharges
@@ -27,49 +25,47 @@ const Bill = ({ navigation, route }) => {
   let sales_tax = 30
   let other_charges = 0
   let total_charges = delivery_charges + truck_delivery_charges + sales_tax + other_charges
+
   const SubmitRequest = async () => {
     setLoading(true);
+    const updatedItems = await Promise.all(
+      request_redux?.items?.map(async (item) => {
+        let imgs = [];
+        if (item?.images?.length > 0) {
+          try {
+            await Promise.all(
+              item?.images?.map(async (image) => {
+                if (image?.path) {
+                  let name = image?.path?.split("/").pop();
+                  let path = `${userid}/images/${name}`;
+                  let img = await uploadProfileImage(image?.path, path);
+                  imgs.push(img);
+                  console.log(`Uploaded image: ${img}`);
+                } else {
+                  console.error(`Image path is invalid: ${image}`);
+                }
+              })
+            );
+          } catch (imageError) {
+            console.error(`Error uploading images for item ${item.id}:`, imageError);
+          }
+        }
+        return { ...item, images: imgs };
+      })
+    );
     try {
       let _id = uniqueID();
       let userRef = DocRef("users", userid);
       const dataToSave = {
         id: _id,
         ...request_redux,
+        items: updatedItems,
         userid: userid,
         userRef: userRef,
         status: "pending",
         createdAt: Date.parse(new Date()),
         updatedAt: Date.parse(new Date()),
       };
-      //  const updatedItems = await Promise.all(
-      //     validatedItemDetails.map(async (item) => {
-      //       let imgs = [];
-      //       if (item?.images?.length > 0) {
-      //         try {
-      //           await Promise.all(
-      //             item.images.map(async (image) => {
-      //               if (image?.path) {
-      //                 let name = image.path.split("/").pop();
-      //                 let path = `${userid}/images/${name}`;
-      //                 let img = await uploadProfileImage(image.path, path);
-      //                 imgs.push(img);
-      //                 console.log(`Uploaded image: ${img}`);
-      //               } else {
-      //                 console.error(`Image path is invalid: ${image}`);
-      //               }
-      //             })
-      //           );
-      //         } catch (imageError) {
-      //           console.error(
-      //             `Error uploading images for item ${item.id}:`,
-      //             imageError
-      //           );
-      //         }
-      //       }
-      //       return { ...item, images: imgs };
-      //     })
-      //   );
-      // dataToSave.items = updatedItems;
       const res = await saveData("bookings", _id, dataToSave);
       if (res) {
         navigate(SCREEN.Submitted);
@@ -82,6 +78,27 @@ const Bill = ({ navigation, route }) => {
       setLoading(false);
     }
   };
+
+  const HandlePayment = async () => {
+    try {
+      if (user_redux?.id) {
+        setLoading(true)
+        let res = await ReqStripePayment(user_redux?.id, total_charges * 100)
+        if (res?.success) {
+          await SubmitRequest()
+        }
+        else {
+          setLoading(false)
+          ToastError(res?.message)
+        }
+      }
+    } catch (error) {
+      console.error("Error in HandlePayment:", error);
+    } finally {
+      setLoading(false);
+    }
+
+  }
 
   return (
     <MainWrapper>
@@ -103,7 +120,8 @@ const Bill = ({ navigation, route }) => {
       <DueButtons
         isLoading={loading}
         text={"Pay now"}
-        onPress={SubmitRequest}
+        // onPress={SubmitRequest}
+        onPress={HandlePayment}
         onBack={() => goBack()}
       />
       <PaymentBottomSheet

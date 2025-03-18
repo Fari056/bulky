@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react"
 import { Avatar, BookingCard, ButtonColored, ButtonWithIcon, CardWrapper, ComponentWrapper, DriverOrderHistoryCard, HistoryCard, Hrline, IconWithText, ImageBackgroundWrapper, InputTitle, LargeTitle, MediumText, MediumTitle, PrimaryImage, RegularText, RequestCard, RoundImage, RowWrapper, RowWrapperBasic, SmallText, SmallTitle, Spacer, TextInputBordered, TinyTitle, Wrapper } from "../.."
-import { SCREEN, colors } from "../../../constants"
+import { SCREEN, colors, sizes } from "../../../constants"
 import { styles } from "./styles"
 import { width, height } from 'react-native-dimension'
 import LinearGradient from "react-native-linear-gradient"
@@ -321,6 +321,9 @@ export const ProfileForm = ({ firstName, onChangeFirstName, secondName, onChange
         editable={false}
         right={<PrimaryImage size={totalSize(2.8)} source={Icons.marker} />}
         onPress={onPress}
+        isButton
+        onPressIcon={onPress}
+        containerStyle={{ alignItems: 'center', justifyContent: 'center' }}
       />
       <Spacer isSmall />
     </>

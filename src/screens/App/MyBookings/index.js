@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Linking } from 'react-native'
 import { height } from "react-native-dimension"
 import { useSelector } from 'react-redux'
-import { BookingCard, ComponentWrapper, MainHeaderRight, MainWrapper, Spacer } from '../../../components'
+import { BookingCard, ButtonBorderd, ComponentWrapper, MainHeaderRight, MainWrapper, Spacer } from '../../../components'
 import { colors, SCREEN } from '../../../constants'
+import { useStripe } from '../../../hooks'
 const MyBookings = ({ navigation }) => {
   const { navigate } = navigation
   const user_redux = useSelector((state) => state.user);
