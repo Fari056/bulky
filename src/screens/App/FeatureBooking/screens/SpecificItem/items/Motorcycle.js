@@ -17,52 +17,37 @@ import { SelectableItem } from "../../../../../../components/appComponents/gener
 import { SCREEN, colors } from "../../../../../../constants";
 import { totalSize, width, height } from "react-native-dimension";
 import { m_options } from "../../../../../../../tempData";
-const Motorcycle = ({ route, navigation }) => {
-  const {
-    item,
-    pickupdetails,
-    destinationdetails,
-    itemdetails = [],
-    pickuppoint,
-    destination,
-    isEditMode,
-    deliverydetails,
-    date,
-    time,
-  } = route.params;
-  const [selectedOption, setSelectedOption] = useState(
-    item?.selectedMotorcycleType || null
-  );
-  const { navigate, goBack } = navigation;
-  const { title } = route?.params?.item ?? false;
-  const handleContinue = () => {
-     const updatedItem = {
-       ...item,
-       selectedMotorcycleType: selectedOption,
-     };
-      const existing = itemdetails.findIndex(
-        (existingItem) => existingItem.id === item.id
-      );
+const Motorcycle = ({ title, selectedOption, setSelectedOption }) => {
 
-      if (existing !== -1) {
-       
-        itemdetails[existing] = updatedItem;
-      } else {
-         itemdetails.push(updatedItem);
-      }
-    navigate(SCREEN.SelectedItems, {
-      item: updatedItem,
-      pickupdetails,
-      destinationdetails,
-      itemdetails: itemdetails,
-      pickuppoint,
-      destination,
-      isEditMode,
-      deliverydetails,
-      date,
-      time,
-    });
-  };
+
+  // const handleContinue = () => {
+  //    const updatedItem = {
+  //      ...item,
+  //      selectedMotorcycleType: selectedOption,
+  //    };
+  //     const existing = itemdetails.findIndex(
+  //       (existingItem) => existingItem.id === item.id
+  //     );
+
+  //     if (existing !== -1) {
+
+  //       itemdetails[existing] = updatedItem;
+  //     } else {
+  //        itemdetails.push(updatedItem);
+  //     }
+  //   navigate(SCREEN.SelectedItems, {
+  //     item: updatedItem,
+  //     pickupdetails,
+  //     destinationdetails,
+  //     itemdetails: itemdetails,
+  //     pickuppoint,
+  //     destination,
+  //     isEditMode,
+  //     deliverydetails,
+  //     date,
+  //     time,
+  //   });
+  // };
   const renderItem = ({ item }) => (
     <Wrapper style={styles.itemContainer}>
       <RadioButton
@@ -76,7 +61,6 @@ const Motorcycle = ({ route, navigation }) => {
   return (
     <MainWrapper>
       <ComponentWrapper>
-        <MainHeader title={"Item Details"} />
         <Spacer isBasic />
         <RegularText style={styles.text}>
           Select Items that you want to deliver
@@ -90,11 +74,7 @@ const Motorcycle = ({ route, navigation }) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
       />
-      <DueButtons
-        onPress={handleContinue}
-        text={"continue"}
-        onBack={() => goBack()}
-      />
+
     </MainWrapper>
   );
 };

@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Linking, FlatList } from 'react-native'
-import { ComponentWrapper, MainHeaderRight, MainWrapper } from '../../../components'
-import { BookingsList } from '../../../components/appComponents/generalComponents'
-import { colors, SCREEN } from '../../../constants'
-import { width, height } from "react-native-dimension";
-import { BookingCard, Spacer } from "../../../components";
-import { getAllOfCollection } from "../../../backend/utility";
-import { getCurrentUserId } from '../../../backend/auth'
+import { FlatList, Linking } from 'react-native'
+import { height } from "react-native-dimension"
 import { useSelector } from 'react-redux'
+import { BookingCard, ButtonBorderd, ComponentWrapper, MainHeaderRight, MainWrapper, Spacer } from '../../../components'
+import { colors, SCREEN } from '../../../constants'
+import { useStripe } from '../../../hooks'
 const MyBookings = ({ navigation }) => {
   const { navigate } = navigation
   const user_redux = useSelector((state) => state.user);
@@ -29,7 +26,7 @@ const MyBookings = ({ navigation }) => {
         name={`${item.user.firstName} ${item.user.lastName}`}
         profileImage={item.user.photo}
         onPressPhone={() => Linking.openURL(`tel:0308912345}`)}
-        onPressChat={() => navigate(SCREEN.Chat, { id: item.id })}
+        onPressChat={() => navigate(SCREEN.Chat, { receiver_id: item.userid })}
       />
     );
   };

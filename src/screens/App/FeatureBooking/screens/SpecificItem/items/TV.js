@@ -1,73 +1,53 @@
-import { StyleSheet, FlatList, Dimensions } from "react-native";
 import React, { useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+import { totalSize, width } from "react-native-dimension";
 import {
   ComponentWrapper,
   DueButtons,
   MainHeader,
   MainWrapper,
-  RegularText,
-  RowWrapper,
   RadioButton,
+  RegularText,
   Spacer,
   TextInputSearch,
-  SelectableButtons,
-  Wrapper,
+  Wrapper
 } from "../../../../../../components";
-import { SelectableItem } from "../../../../../../components/appComponents/generalComponents";
 import { SCREEN, colors } from "../../../../../../constants";
-import { totalSize, width, height } from "react-native-dimension";
-const TV = ({ route, navigation }) => {
-  const {
-    item,
-    pickupdetails,
-    destinationdetails,
-    itemdetails = [],
-    pickuppoint,
-    destination,
-    isEditMode,
-    deliverydetails,
-    date,
-    time,
-  } = route.params;
-   const [selectedOption, setSelectedOption] = useState(
-     item?.selectedTVSize || null
-   );
+const TV = ({ title, selectedOption, setSelectedOption }) => {
 
   const options = [
     { id: "1", label: "Up to 50" },
     { id: "2", label: "over 50" },
   ];
-  const { navigate, goBack } = navigation;
-  const { title } = route?.params?.item ?? false;
- const handleContinue = () => {
-    const updatedItem = {
-     ...item,
-     selectedTVSize: selectedOption,
-   };
-   const existingItemIndex = itemdetails.findIndex(
-     (existingItem) => existingItem.id === item.id
-   );
+  //  const handleContinue = () => {
+  //     const updatedItem = {
+  //      ...item,
+  //      selectedTVSize: selectedOption,
+  //    };
+  //    const existingItemIndex = itemdetails.findIndex(
+  //      (existingItem) => existingItem.id === item.id
+  //    );
 
-   if (existingItemIndex !== -1) {
-     itemdetails[existingItemIndex] = updatedItem;
-   } else {
-      itemdetails.push(updatedItem);
-   }
+  //    if (existingItemIndex !== -1) {
+  //      itemdetails[existingItemIndex] = updatedItem;
+  //    } else {
+  //       itemdetails.push(updatedItem);
+  //    }
 
-   navigate(SCREEN.SelectedItems, {
-     item: updatedItem,
-     pickupdetails,
-     destinationdetails,
-     itemdetails: itemdetails,
-     pickuppoint,
-     destination,
-     selectedOption,
-     isEditMode,
-     deliverydetails,
-     date,
-     time,
-   });
- };
+  //    navigate(SCREEN.SelectedItems, {
+  //      item: updatedItem,
+  //      pickupdetails,
+  //      destinationdetails,
+  //      itemdetails: itemdetails,
+  //      pickuppoint,
+  //      destination,
+  //      selectedOption,
+  //      isEditMode,
+  //      deliverydetails,
+  //      date,
+  //      time,
+  //    });
+  //  };
 
   const renderItem = ({ item }) => (
     <Wrapper style={styles.itemContainer}>
@@ -82,7 +62,6 @@ const TV = ({ route, navigation }) => {
   return (
     <MainWrapper>
       <ComponentWrapper>
-        <MainHeader title={"Item Details"} />
         <Spacer isBasic />
         <RegularText style={styles.text}>
           Select Items that you want to deliver
@@ -95,11 +74,6 @@ const TV = ({ route, navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
-      />
-      <DueButtons
-        onPress={handleContinue}
-        text={"continue"}
-        onBack={() => goBack()}
       />
     </MainWrapper>
   );

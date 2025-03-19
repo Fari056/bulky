@@ -110,9 +110,9 @@ export const RadioButton = ({ onPress, active, title, titleStyle, style }) => {
     )
 }
 
-export const DueButtons = ({ onBack, text, onPress, disabled, isLoading }) => {
+export const DueButtons = ({ onBack, text, onPress, disabled, isLoading, style }) => {
     return (
-        <Wrapper style={styles.dueButtons}>
+        <Wrapper style={[styles.dueButtons, style]}>
             <RowWrapper>
                 <TouchableOpacity
                     onPress={onBack}
