@@ -15,16 +15,16 @@ const Home = ({ navigation }) => {
   const userLocation = user_redux?.cords;
   const [data, setData] = useState(bookings);
   const [ignoreList, setIgnoreList] = useState([]);
-  const [driverLocation, setDriverLocation] = useState(userLocation);
+   const [driverLocation, setDriverLocation] = useState(userLocation);
   const RADIUS_IN_KM = 10;
   useEffect(() => {
-    if (userLocation) {
-      setDriverLocation(userLocation);
-    }
+      if (userLocation) {
+        setDriverLocation(userLocation);
+      }
     if (Array.isArray(bookings) && driverLocation) {
       const nearbyBookings = bookings.filter((booking) => {
         const bookingCoords = booking.pickupdetails.cords;
-        if (
+         if (
           !bookingCoords ||
           !bookingCoords.latitude ||
           !bookingCoords.longitude
@@ -52,7 +52,6 @@ const Home = ({ navigation }) => {
       setData(nearbyBookings);
     }
   }, [bookings, driverLocation, ignoreList]);
-
   useEffect(() => {
     const res = async () => {
       await request_Permission();
@@ -64,7 +63,6 @@ const Home = ({ navigation }) => {
     };
     res();
   }, []);
-
   const token_ = async () => {
     try {
       let token = await getToken();
@@ -101,8 +99,8 @@ const Home = ({ navigation }) => {
       <RequestCard
         name={user?.firstName || ""}
         photo={user?.photo || ""}
-        price={deliverydetails?.totalcharges ?? deliverydetails?.totalCharges}
-        onPressAccept={() => navigate(SCREEN?.driverRequestDetail, { item })}
+        price={deliverydetails?.totalcharges}
+        onPressAccept={() => navigate(SCREEN.driverRequestDetail, { item })}
         onPressChat={() => navigate(SCREEN.driverChat)}
         onPressPhone={() => Linking.openURL(`tel:${user?.phone}`)}
         date={formatDate(date)}

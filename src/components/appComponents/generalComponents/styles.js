@@ -4,14 +4,10 @@ import { colors, fontFamily } from '../../../constants'
 
 export const styles = StyleSheet.create({
   textContainer: {
-    // paddingRight: 40,
-    width: width(78),
+    right: "30%",
   },
   optionsContainer_: {
     flexDirection: "column",
-  },
-  checkboxContainer: {
-
   },
   optionRow_: {
     flexDirection: "row",

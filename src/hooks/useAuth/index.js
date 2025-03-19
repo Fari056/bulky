@@ -47,8 +47,6 @@ export const useAuth = () => {
     }
 
     const SignUpClient = async () => {
-
-
         if (validations()) {
             // console.log(account_type_redux)
             const USER = {
@@ -60,23 +58,17 @@ export const useAuth = () => {
             try {
                 setLoading(true)
                 let uid = await signUp(USER)
-                console.log('uid', uid)
                 if (uid) {
                     delete USER.password
-                    USER.id = uid
                     let saved = await saveData('users', uid, USER)
-                    console.log('saved', saved)
                     if (saved) {
                         navigate(SCREEN?.signIn)
                     }
+                    setLoading(false)
                 }
-                return
-
+                setLoading(false)
             } catch (error) {
                 console.log('error', error)
-                setLoading(false)
-            }
-            finally {
                 setLoading(false)
             }
         }
@@ -108,49 +100,49 @@ export const useAuth = () => {
             }
         }
     }
-    const updateProfile = async (_uid, profile, updatedData) => {
-        try {
-            setLoading(true);
-            let img = "";
-            if (profile) {
-                let imageName = `/${_uid}/profile/${profile.path.split("/").pop()}`;
-                img = await uploadProfileImage(profile.path, imageName);
-            }
-            const dataToUpdate = { ...updatedData, photo: img };
-            const res = await saveData("users", _uid, dataToUpdate);
-            if (res) {
-                const _res1 = await getData("users", _uid);
-                return _res1;
-            }
-        } catch (error) {
-            console.log("err", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    const CompleteProfile = async () => {
-        const _uid = await getCurrentUserId();
-        const updatedData = {
-            firstName,
-            lastName,
-            location,
-            phone: phoneNumber,
-            isActive: true,
-        };
-        const profileData = await updateProfile(_uid, profile, updatedData);
-        if (profileData.type === "driver") {
-            navigate(SCREEN.selectPaymentMethods, {
-                firstName: profileData.firstName,
-                lastName: profileData.lastName,
-                location: profileData.location,
-                phone: profileData.phone,
-                isActive: profileData.isActive,
-                photo: profileData.photo,
-            });
-        } else {
-            dispatch(signin(profileData));
-        }
-    };
+const updateProfile = async (_uid, profile, updatedData) => {
+  try {
+    setLoading(true);
+     let img = "";
+    if (profile) {
+      let imageName = `/${_uid}/profile/${profile.path.split("/").pop()}`;
+      img = await uploadProfileImage(profile.path, imageName);
+    }
+   const dataToUpdate = { ...updatedData, photo: img };
+    const res = await saveData("users", _uid, dataToUpdate);
+    if (res) {
+      const _res1 = await getData("users", _uid);
+      return _res1;
+    }
+  } catch (error) {
+    console.log("err", error);
+    } finally {
+    setLoading(false);
+  }
+};
+const CompleteProfile = async () => {
+  const _uid = await getCurrentUserId();
+  const updatedData = {
+    firstName,
+    lastName,
+    location,
+    phone: phoneNumber,
+    isActive: true,
+  };
+  const profileData = await updateProfile(_uid, profile, updatedData);
+  if (profileData.type === "driver") {
+    navigate(SCREEN.selectPaymentMethods, {
+      firstName: profileData.firstName,
+      lastName: profileData.lastName,
+      location: profileData.location,
+      phone: profileData.phone,
+      isActive: profileData.isActive,
+      photo: profileData.photo,
+    });
+  } else {
+    dispatch(signin(profileData));
+  }
+};
 
     const LOGOUTAPP = async () => {
         dispatch(logout())

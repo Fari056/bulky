@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react"
 import { Avatar, BookingCard, ButtonColored, ButtonWithIcon, CardWrapper, ComponentWrapper, DriverOrderHistoryCard, HistoryCard, Hrline, IconWithText, ImageBackgroundWrapper, InputTitle, LargeTitle, MediumText, MediumTitle, PrimaryImage, RegularText, RequestCard, RoundImage, RowWrapper, RowWrapperBasic, SmallText, SmallTitle, Spacer, TextInputBordered, TinyTitle, Wrapper } from "../.."
-import { SCREEN, colors, sizes } from "../../../constants"
+import { SCREEN, colors } from "../../../constants"
 import { styles } from "./styles"
 import { width, height } from 'react-native-dimension'
 import LinearGradient from "react-native-linear-gradient"
@@ -188,7 +188,7 @@ export const FormText = ({ Boxes, onChange, boxesError }) => {
 export const CheckBoxItem = ({ title, description, value, onpress }) => {
   return (
     <>
-      <RowWrapperBasic>
+      <RowWrapper>
         <CheckBox
           checked={value}
           onPress={onpress}
@@ -200,7 +200,7 @@ export const CheckBoxItem = ({ title, description, value, onpress }) => {
             {description}
           </RegularText>
         </View>
-      </RowWrapperBasic>
+      </RowWrapper>
     </>
   );
 };
@@ -233,15 +233,12 @@ export const SizeOptions = ({ onSelectionChange }) => {
   });
   const handleCheck = (size) => {
     const newSizes = {
-      // small: false,
-      // medium: false,
-      // large: false,
-      // extraLarge: false,
-      [size]: true
+      ...selectedSizes,
+      [size]: !selectedSizes[size],
     };
-    setSelectedSizes(size);
+    setSelectedSizes(newSizes);
     if (typeof onSelectionChange === "function") {
-      onSelectionChange(size);
+      onSelectionChange(newSizes);
     } else {
       console.warn("onSelectionChange is not a function");
     }
@@ -251,14 +248,14 @@ export const SizeOptions = ({ onSelectionChange }) => {
     <Wrapper style={styles.optionsContainer_}>
       <Wrapper style={styles.optionRow_}>
         <CheckBox
-          checked={selectedSizes == "small"}
+          checked={selectedSizes.small}
           onPress={() => handleCheck("small")}
           title={
             <RegularText style={{ color: colors.black }}>Small</RegularText>
           }
         />
         <CheckBox
-          checked={selectedSizes == "medium"}
+          checked={selectedSizes.medium}
           onPress={() => handleCheck("medium")}
           title={
             <RegularText style={{ color: colors.black }}>Medium</RegularText>
@@ -267,14 +264,14 @@ export const SizeOptions = ({ onSelectionChange }) => {
       </Wrapper>
       <Wrapper style={styles.optionRow_}>
         <CheckBox
-          checked={selectedSizes == "large"}
+          checked={selectedSizes.large}
           onPress={() => handleCheck("large")}
           title={
             <RegularText style={{ color: colors.black }}>Large</RegularText>
           }
         />
         <CheckBox
-          checked={selectedSizes == "extraLarge"}
+          checked={selectedSizes.extraLarge}
           onPress={() => handleCheck("extraLarge")}
           title={
             <RegularText style={{ color: colors.black }}>
@@ -321,9 +318,6 @@ export const ProfileForm = ({ firstName, onChangeFirstName, secondName, onChange
         editable={false}
         right={<PrimaryImage size={totalSize(2.8)} source={Icons.marker} />}
         onPress={onPress}
-        isButton
-        onPressIcon={onPress}
-        containerStyle={{ alignItems: 'center', justifyContent: 'center' }}
       />
       <Spacer isSmall />
     </>

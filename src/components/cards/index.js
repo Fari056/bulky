@@ -40,8 +40,8 @@ const formatAddressText = (text, wordLimitPerLine = 3) => {
   return formattedText.trim();
 };
 export const RequestCard = ({
-  name = '',
-  photo = '',
+  name='',
+  photo='',
   price,
   onPressCard,
   onPressIgnore,
@@ -61,7 +61,7 @@ export const RequestCard = ({
         <Spacer isSmall />
         <RowWrapper style={{ marginHorizontal: width(2) }}>
           <RowWrapperBasic>
-            <Avatar source={{ uri: photo || '' }} />
+            <Avatar source={{ uri: photo ||'' }} />
             <RegularText style={styles.userName}>{name}</RegularText>
           </RowWrapperBasic>
           <RowWrapperBasic>
@@ -188,19 +188,19 @@ export const BookingCard = ({ name, profileImage, booking, lineStyle, onPressCar
             <PrimaryImage size={totalSize(3)} source={Images.cash} />
             <MediumText
               style={styles.userName}
-            >{`$${booking?.deliverydetails?.totalcharges ?? booking?.deliverydetails?.totalCharges}`}
-            </MediumText>
+            >{`$${booking?.deliverydetails?.totalcharges}`}</MediumText>
           </RowWrapperBasic>
         </RowWrapper>
         <Spacer isBasic />
         <Hrline style={[styles.line, lineStyle]} />
         <Spacer isBasic />
-        <RowWrapper style={{ alignItems: "flex-start", }}>
-          <Wrapper style={{ width: width(50), }}>
+        <RowWrapper style={{ alignItems: "flex-start" }}>
+          <Wrapper>
             <IconWithText
               onPress={onPressCard}
               iconSize={20}
-              textstyle={{ width: width(45), }}
+              style={{ width: width(60), }}
+              textstyle={{ width: width(50) }}
               color={colors.appTextColor2}
               iconName={"dot-fill"}
               iconType={"octicon"}
@@ -210,7 +210,8 @@ export const BookingCard = ({ name, profileImage, booking, lineStyle, onPressCar
             <Wrapper style={styles.vl} />
             <IconWithText
               onPress={onPressCard}
-              textstyle={{ width: width(45) }}
+              style={{ width: width(60), }}
+              textstyle={{ width: width(50) }}
               iconSize={20}
               color={colors.appTextColor2}
               iconName={"map-marker"}
@@ -389,7 +390,7 @@ export const BookingRequestCard = ({ item, onPress }) => {
 
 // Details
 export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
-  const itemDetails = item?.items || [];
+  const itemDetails = item?.itemdetails || [];
   const countImages = itemDetails.reduce((total, detail) => {
     return total + (detail.images ? detail.images.length : 0);
   }, 0);
@@ -404,11 +405,11 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
           </RegularText>
           <PrimaryImage size={totalSize(3)} source={Images.cash} />
           <MediumText style={styles.userName}>
-            ${item.deliverydetails.totalCharges}
+            ${item.deliverydetails.totalcharges}
           </MediumText>
         </RowWrapperBasic>
         <RowWrapperBasic>
-          <TouchableOpacity activeOpacity={0.8} onPress={onPressChat}>
+          <TouchableOpacity activeOpacity={0.8} onPress={onPresscall}>
             <Icon
               style={{ marginHorizontal: 15 }}
               name="chatbubbles-outline"
@@ -418,7 +419,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
             />
           </TouchableOpacity>
           <View></View>
-          <TouchableOpacity activeOpacity={0.8} onPress={onPresscall}>
+          <TouchableOpacity activeOpacity={0.8} onPress={onPressChat}>
             <Icon
               name="phone"
               type="simple-line-icon"
@@ -495,10 +496,10 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
         <View style={styles.itemRowd}>
           <RowWrapper style={{ marginHorizontal: width(2) }}>
             <RowWrapperBasic>
-              {item?.items.map((detail, index) => (
+              {itemDetails.map((detail, index) => (
                 <RowWrapper key={index} style={{ marginHorizontal: 8 }}>
                   <RowWrapperBasic>
-                    {detail?.images && detail?.images?.map((image, imgIndex) => (
+                    {detail.images?.map((image, imgIndex) => (
                       <Image
                         key={imgIndex}
                         source={{ uri: image }}
@@ -510,7 +511,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
                       />
                     ))}
                     <MediumText style={styles.userName}>
-                      {detail?.type},
+                      {detail.title}
                     </MediumText>
                   </RowWrapperBasic>
                   <Spacer isSmall />
@@ -538,7 +539,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
         <RowWrapperBasic>
           <PrimaryImage size={totalSize(3)} source={Images.userGroup} />
           <MediumText style={styles.userName}>
-            {item.deliverydetails.numHelpers} Helper
+            {item.deliverydetails.helperscount} Helper
           </MediumText>
         </RowWrapperBasic>
         <RegularText style={styles.helperDescriptiond}>
@@ -549,7 +550,7 @@ export const BookingDetailCard = ({ item, onPressChat, onPresscall, user }) => {
       <View style={styles.weightCardd}>
         <RowWrapperBasic>
           <PrimaryImage size={totalSize(3)} source={Images.kg} />
-          <MediumText style={styles.userName}>{item.items.reduce((total, detail) => total + detail.weight, 0)} lb</MediumText>
+          <MediumText style={styles.userName}>400 kg</MediumText>
         </RowWrapperBasic>
       </View>
     </ScrollView>

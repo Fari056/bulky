@@ -69,7 +69,6 @@ const AppNavigation = () => {
         <Screen name={SCREEN.SelectedItems} component={App.SelectedItems} />
         <Screen name={SCREEN.Bike} component={App.Bike} />
         <Screen name={SCREEN.Boxes} component={App.Boxes} />
-        <Screen name={SCREEN.Products} component={App.Products} />
         <Screen name={SCREEN.Boats} component={App.Boats} />
         <Screen name={SCREEN.location} component={App.Location} />
         <Screen name={SCREEN.Motorcycle} component={App.Motorcycle} />

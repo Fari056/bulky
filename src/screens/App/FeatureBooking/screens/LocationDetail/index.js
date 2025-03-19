@@ -1,13 +1,11 @@
-import { GOOGLE_API_KEY } from "@env"
-import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
-import Geocoder from 'react-native-geocoding'
+import React, { useState, useEffect } from 'react'
 import { ComponentWrapper, DueButtons, MainHeader, MainWrapper, RegularTextBlack } from '../../../../../components'
-import { SCREEN } from '../../../../../constants'
 import { LocationDetailCard } from '../../components'
-import { useDispatch } from "react-redux"
-import { setRequestData } from "../../../../../redux/actions"
-
+import { SCREEN } from '../../../../../constants'
+import Geolocation from 'react-native-geolocation-service';
+import Geocoder from 'react-native-geocoding';
+import { GOOGLE_API_KEY } from "@env";
 const LocationDetail = ({ navigation, route }) => {
   const { pickuppoint, destination } = route.params;
   const { navigate, goBack } = navigation
@@ -17,7 +15,6 @@ const LocationDetail = ({ navigation, route }) => {
   const [dCount, setDCount] = useState(1)
   const [pickupName, setPickupName] = useState("");
   const [destinationName, setDestinationName] = useState("");
-  const dispatch = useDispatch();
   Geocoder.init(GOOGLE_API_KEY);
 
   useEffect(() => {
@@ -51,7 +48,7 @@ const LocationDetail = ({ navigation, route }) => {
   const Valid = () => {
     return pickuppoint && destination && pActive !== null && dActive !== null;
   };
-  const edit = () => {
+  const edit = ()=>{
     goBack();
   }
 
@@ -86,23 +83,21 @@ const LocationDetail = ({ navigation, route }) => {
         onBack={() => goBack()}
         onPress={() => {
           if (Valid()) {
-
-            let pickupdetails = {
-              pickupaddress: pickupName,
-              elevator: pActive,
-              floors: pCount,
-              cords: pickuppoint,
-            }
-            let destinationdetails = {
-              destination: destinationName,
-              elevator: dActive,
-              floors: dCount,
-              cords: destination,
-            }
-            dispatch(setRequestData({ pickupdetails, destinationdetails }))
             navigate(SCREEN.ItemDetail, {
-              pickupdetails,
-              destinationdetails
+              // pickuppoint,
+              // destination,
+              pickupdetails: {
+                pickupaddress: pickupName,
+                elevator: pActive,
+                floors: pCount,
+                cords: pickuppoint,
+              },
+              destinationdetails: {
+                destination: destinationName,
+                elevator: dActive,
+                floors: dCount,
+                cords: destination,
+              },
             });
           }
         }}

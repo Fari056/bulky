@@ -7,10 +7,8 @@ import DeliveryDateTime from './DeliveryDateTime'
 import Summery from './Summery'
 import Bill from './Bill'
 import Submitted from './Submitted'
-import Products from './SpecificItem/index2'
 
 export {
     LocationDetail, ItemDetails, SpecificItem, SelectedItems,
     AddHelpers, DeliveryDateTime, Summery, Bill, Submitted,
-    Products
 }
