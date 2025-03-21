@@ -22,22 +22,22 @@ const AddHelpers = ({ navigation, route }) => {
   const pickupFloors = pickupdetails?.floors ?? 0;
   const destinationFloors = destinationdetails?.floors ?? 0;
   const total_charges = count * price;
-   const b = (screen) =>
-     navigate(screen, {
-       pickupdetails,
-       destinationdetails,
-       itemdetails,
-       pickuppoint,
-       destination,
-       deliverydetails: {
-         helperscount: count,
-         helperprice: price,
-         totalcharges: total_charges,
-       },
-       date,
-       time,
-       isEdit,
-     });
+  const b = (screen) =>
+    navigate(screen, {
+      pickupdetails,
+      destinationdetails,
+      itemdetails,
+      pickuppoint,
+      destination,
+      deliverydetails: {
+        helperscount: count,
+        helperprice: price,
+        totalcharges: total_charges,
+      },
+      date,
+      time,
+      isEdit,
+    });
   return (
     <MainWrapper>
       <ComponentWrapper>
@@ -72,7 +72,7 @@ const AddHelpers = ({ navigation, route }) => {
       <DueButtons
         text={"continue"}
         onBack={() => goBack()}
-        onPress={() =>b(isEdit ? SCREEN.Summery : SCREEN.DeliveryDateTime)
+        onPress={() => b(isEdit ? SCREEN.Summery : SCREEN.DeliveryDateTime)
         }
       />
     </MainWrapper>

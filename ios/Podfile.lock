@@ -1160,9 +1160,6 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.36)
   - BVLinearGradient (2.8.3):
     - React-Core
-  - CocoaLumberjack (3.8.5):
-    - CocoaLumberjack/Core (= 3.8.5)
-  - CocoaLumberjack/Core (3.8.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.76.5)
   - Firebase/Auth (11.8.0):
@@ -3086,9 +3083,6 @@ PODS:
     - React-perflogger (= 0.76.5)
     - React-utils (= 0.76.5)
   - RecaptchaInterop (100.0.0)
-  - RNBackgroundGeolocation (4.18.6):
-    - CocoaLumberjack (~> 3.8.5)
-    - React-Core
   - RNCAsyncStorage (2.1.0):
     - DoubleConversion
     - glog
@@ -3520,7 +3514,6 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RecaptchaInterop
-  - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -3544,7 +3537,6 @@ SPEC REPOS:
     - abseil
     - AppAuth
     - BoringSSL-GRPC
-    - CocoaLumberjack
     - Firebase
     - FirebaseAppCheckInterop
     - FirebaseAuth
@@ -3723,8 +3715,6 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNBackgroundGeolocation:
-    :path: "../node_modules/react-native-background-geolocation"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDateTimePicker:
@@ -3766,7 +3756,6 @@ SPEC CHECKSUMS:
   boost: 1dca942403ed9342f98334bf4c3621f011aa7946
   BoringSSL-GRPC: ca6a8e5d04812fce8ffd6437810c2d46f925eaeb
   BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
-  CocoaLumberjack: 6a459bc897d6d80bd1b8c78482ec7ad05dffc3f0
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
   FBLazyVector: 1bf99bb46c6af9a2712592e707347315f23947aa
   Firebase: d80354ed7f6df5f9aca55e9eb47cc4b634735eaf
@@ -3865,7 +3854,6 @@ SPEC CHECKSUMS:
   ReactCodegen: 8d7f9f05befdeb108948bbaa18d149b25a964f72
   ReactCommon: 858d61cce81635d57be89348568b603e838b3cac
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  RNBackgroundGeolocation: bd7bf842870d57e283d07c1753ccc0d3d8231f1c
   RNCAsyncStorage: d494bdee892cc6a4d790c960afb7b5dd1d91abb1
   RNDateTimePicker: b4dbbbe7a49cf4c9d9c01179f6d30242018e20da
   RNFBApp: 7608d07e90e99f81f3627b0e325cca3ddc9a2ab3

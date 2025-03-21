@@ -1,5 +1,5 @@
-import { StyleSheet, FlatList, Image , ScrollView} from "react-native";
-import React,{useState} from "react";
+import { StyleSheet, FlatList, Image, ScrollView } from "react-native";
+import React, { useState } from "react";
 import {
   ComponentWrapper,
   DueButtons,
@@ -42,46 +42,46 @@ const Appliances = ({ route, navigation }) => {
     date,
     time,
   } = route.params;
-   const { navigate, goBack } = navigation;
+  const { navigate, goBack } = navigation;
   const [data, setData] = useState(Data);
-   const [selectedSizes, setSelectedSizes] = useState({
-     small: false,
-     medium: false,
-     large: false,
-     extraLarge: false,
-   });
+  const [selectedSizes, setSelectedSizes] = useState({
+    small: false,
+    medium: false,
+    large: false,
+    extraLarge: false,
+  });
   const [selected, setSelected] = useState(null);
   const { title } = route?.params?.item ?? false;
-   const [imageUrls, setImageUrls] = useState(item?.images || []);
- const handleImagePicker = () => {
-   ImagePicker.openPicker({
-     multiple: true,
-     mediaType: "photo",
-   }).then(async (selectedImages) => {
-     let count = [...imageUrls, ...selectedImages]?.length;
-     if (count > 3) {
-       ToastError("up to 3 images are allowed");
-       return;
-     }
-     setImageUrls((prevUrls) => [...prevUrls, ...selectedImages]);
-   });
- };
+  const [imageUrls, setImageUrls] = useState(item?.images || []);
+  const handleImagePicker = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      mediaType: "photo",
+    }).then(async (selectedImages) => {
+      let count = [...imageUrls, ...selectedImages]?.length;
+      if (count > 3) {
+        ToastError("up to 3 images are allowed");
+        return;
+      }
+      setImageUrls((prevUrls) => [...prevUrls, ...selectedImages]);
+    });
+  };
 
- const handleIncrement = (index) => {
-   const newData = [...data];
-   newData[index].count += 1;
-   setData(newData);
- };
+  const handleIncrement = (index) => {
+    const newData = [...data];
+    newData[index].count += 1;
+    setData(newData);
+  };
 
- const handleDecrement = (index) => {
-   const newData = [...data];
-   if (newData[index].count > 1) {
-     newData[index].count -= 1;
-     setData(newData);
-   }
- };
- const handleContinue = () => {
-   const selectedItems = data.filter((item, index) => index === selected);
+  const handleDecrement = (index) => {
+    const newData = [...data];
+    if (newData[index].count > 1) {
+      newData[index].count -= 1;
+      setData(newData);
+    }
+  };
+  const handleContinue = () => {
+    const selectedItems = data.filter((item, index) => index === selected);
     const updatedItem = {
       ...item,
       selectedItems,
@@ -97,21 +97,21 @@ const Appliances = ({ route, navigation }) => {
         index === Index ? updatedItem : existingItem
       );
     } else {
-       newItem = [...itemdetails, updatedItem];
+      newItem = [...itemdetails, updatedItem];
     }
-   navigate(SCREEN.SelectedItems, {
-     item: updatedItem,
-     pickupdetails,
-     destinationdetails,
-     itemdetails: newItem,
-     pickuppoint,
-     destination,
-     isEditMode,
-     deliverydetails,
-     date,
-     time,
-   });
- };
+    navigate(SCREEN.SelectedItems, {
+      item: updatedItem,
+      pickupdetails,
+      destinationdetails,
+      itemdetails: newItem,
+      pickuppoint,
+      destination,
+      isEditMode,
+      deliverydetails,
+      date,
+      time,
+    });
+  };
 
   return (
     <MainWrapper>

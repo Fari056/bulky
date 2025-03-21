@@ -48,7 +48,7 @@ const LocationDetail = ({ navigation, route }) => {
   const Valid = () => {
     return pickuppoint && destination && pActive !== null && dActive !== null;
   };
-  const edit = ()=>{
+  const edit = () => {
     goBack();
   }
 

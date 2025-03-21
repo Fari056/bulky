@@ -69,7 +69,7 @@ const SpecificItem = ({ route, navigation }) => {
     if (Index !== -1) {
       itemdetails[Index] = updatedItem;
     } else {
-      itemdetails.push(updatedItem);
+      itemdetails?.push(updatedItem);
     }
     navigate(SCREEN.SelectedItems, {
       item: updatedItem,

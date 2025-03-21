@@ -25,7 +25,7 @@ export const HelperCard = ({ onPress, count = 2, setCount }) => {
                         style={styles.btn}>
                         <LargeText>-</LargeText>
                     </TouchableOpacity>
-                    <LargeText>{'1'}</LargeText>
+                    <LargeText>{count}</LargeText>
                     <TouchableOpacity
                         onPress={() => count < 15 && setCount(count + 1)}
                         style={styles.btn}>
@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
     priceCardText: {
         fontSize: fontSize.medium,
         fontFamily: fontFamily.appTextLight,
-        color:colors.appTextColor16
+        color: colors.appTextColor16
 
     },
     priceCardTotal: {
         fontSize: fontSize.large,
         fontFamily: fontFamily.appTextBold,
-        color:colors.appTextColor16
+        color: colors.appTextColor16
     },
 })

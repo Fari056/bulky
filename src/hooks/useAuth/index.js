@@ -6,6 +6,7 @@ import { getData, saveData, uploadProfileImage } from '../../backend/utility'
 import { SCREEN } from '../../constants'
 import { useNavigation } from '@react-navigation/native'
 import { logout, set_account_type, signin } from '../../redux/actions'
+import { ToastError } from '../../utilities'
 
 export const useAuth = () => {
     const { replace, navigate } = useNavigation()
@@ -100,49 +101,49 @@ export const useAuth = () => {
             }
         }
     }
-const updateProfile = async (_uid, profile, updatedData) => {
-  try {
-    setLoading(true);
-     let img = "";
-    if (profile) {
-      let imageName = `/${_uid}/profile/${profile.path.split("/").pop()}`;
-      img = await uploadProfileImage(profile.path, imageName);
-    }
-   const dataToUpdate = { ...updatedData, photo: img };
-    const res = await saveData("users", _uid, dataToUpdate);
-    if (res) {
-      const _res1 = await getData("users", _uid);
-      return _res1;
-    }
-  } catch (error) {
-    console.log("err", error);
-    } finally {
-    setLoading(false);
-  }
-};
-const CompleteProfile = async () => {
-  const _uid = await getCurrentUserId();
-  const updatedData = {
-    firstName,
-    lastName,
-    location,
-    phone: phoneNumber,
-    isActive: true,
-  };
-  const profileData = await updateProfile(_uid, profile, updatedData);
-  if (profileData.type === "driver") {
-    navigate(SCREEN.selectPaymentMethods, {
-      firstName: profileData.firstName,
-      lastName: profileData.lastName,
-      location: profileData.location,
-      phone: profileData.phone,
-      isActive: profileData.isActive,
-      photo: profileData.photo,
-    });
-  } else {
-    dispatch(signin(profileData));
-  }
-};
+    const updateProfile = async (_uid, profile, updatedData) => {
+        try {
+            setLoading(true);
+            let img = "";
+            if (profile) {
+                let imageName = `/${_uid}/profile/${profile.path.split("/").pop()}`;
+                img = await uploadProfileImage(profile.path, imageName);
+            }
+            const dataToUpdate = { ...updatedData, photo: img };
+            const res = await saveData("users", _uid, dataToUpdate);
+            if (res) {
+                const _res1 = await getData("users", _uid);
+                return _res1;
+            }
+        } catch (error) {
+            console.log("err", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    const CompleteProfile = async () => {
+        const _uid = await getCurrentUserId();
+        const updatedData = {
+            firstName,
+            lastName,
+            location,
+            phone: phoneNumber,
+            isActive: true,
+        };
+        const profileData = await updateProfile(_uid, profile, updatedData);
+        if (profileData.type === "driver") {
+            navigate(SCREEN.selectPaymentMethods, {
+                firstName: profileData.firstName,
+                lastName: profileData.lastName,
+                location: profileData.location,
+                phone: profileData.phone,
+                isActive: profileData.isActive,
+                photo: profileData.photo,
+            });
+        } else {
+            dispatch(signin(profileData));
+        }
+    };
 
     const LOGOUTAPP = async () => {
         dispatch(logout())

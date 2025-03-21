@@ -30,74 +30,74 @@ const Bill = ({ navigation, route }) => {
     destination,
   } = route.params;
   const RBSheet1 = useRef();
-const SubmitRequest = async () => {
-  setLoading(true);
-  try {
-    const validatedItemDetails = itemdetails.map((item) => ({
-      id: item?.id,
-      qty: item?.selectedItem?.count || 1,
-      title: item?.title,
-      type: item?.selectedItem?.title || item?.type,
-      images: item?.images || [],
-    }));
+  const SubmitRequest = async () => {
+    setLoading(true);
+    try {
+      const validatedItemDetails = itemdetails.map((item) => ({
+        id: item?.id,
+        qty: item?.selectedItem?.count || 1,
+        title: item?.title,
+        type: item?.selectedItem?.title || item?.type,
+        images: item?.images || [],
+      }));
 
-    let id = uniqueID();
-    let userRef = DocRef("users", userid);
-    const dataToSave = {
-      id: id,
-      pickupdetails: pickupdetails,
-      destinationdetails: destinationdetails,
-      deliverydetails: deliverydetails,
-      date: date,
-      time: time,
-      status: "pending",
-      userid: userid,
-      userRef: userRef,
-      createdAt: Date.parse(new Date()),
-      updatedAt: Date.parse(new Date()),
-    };
-   const updatedItems = await Promise.all(
-      validatedItemDetails.map(async (item) => {
-        let imgs = [];
-        if (item?.images?.length > 0) {
-          try {
-            await Promise.all(
-              item.images.map(async (image) => {
-                if (image?.path) {
-                  let name = image.path.split("/").pop();
-                  let path = `${userid}/images/${name}`;
-                  let img = await uploadProfileImage(image.path, path);
-                  imgs.push(img);
-                  console.log(`Uploaded image: ${img}`);
-                } else {
-                  console.error(`Image path is invalid: ${image}`);
-                }
-              })
-            );
-          } catch (imageError) {
-            console.error(
-              `Error uploading images for item ${item.id}:`,
-              imageError
-            );
+      let id = uniqueID();
+      let userRef = DocRef("users", userid);
+      const dataToSave = {
+        id: id,
+        pickupdetails: pickupdetails,
+        destinationdetails: destinationdetails,
+        deliverydetails: deliverydetails,
+        date: date,
+        time: time,
+        status: "pending",
+        userid: userid,
+        userRef: userRef,
+        createdAt: Date.parse(new Date()),
+        updatedAt: Date.parse(new Date()),
+      };
+      const updatedItems = await Promise.all(
+        validatedItemDetails.map(async (item) => {
+          let imgs = [];
+          if (item?.images?.length > 0) {
+            try {
+              await Promise.all(
+                item.images.map(async (image) => {
+                  if (image?.path) {
+                    let name = image.path.split("/").pop();
+                    let path = `${userid}/images/${name}`;
+                    let img = await uploadProfileImage(image.path, path);
+                    imgs.push(img);
+                    console.log(`Uploaded image: ${img}`);
+                  } else {
+                    console.error(`Image path is invalid: ${image}`);
+                  }
+                })
+              );
+            } catch (imageError) {
+              console.error(
+                `Error uploading images for item ${item.id}:`,
+                imageError
+              );
+            }
           }
-        }
-        return { ...item, images: imgs };
-      })
-    );
-    dataToSave.items = updatedItems;
-    const res = await saveData("bookings", id, dataToSave);
-    if (res) {
-      navigate(SCREEN.Submitted);
-    } else {
-      console.error("Error saving booking data", res);
+          return { ...item, images: imgs };
+        })
+      );
+      dataToSave.items = updatedItems;
+      const res = await saveData("bookings", id, dataToSave);
+      if (res) {
+        navigate(SCREEN.Submitted);
+      } else {
+        console.error("Error saving booking data", res);
+      }
+    } catch (error) {
+      console.error("Error in SubmitRequest:", error);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error("Error in SubmitRequest:", error);
-  } finally {
-    setLoading(false);
-  }
-};
- return (
+  };
+  return (
     <MainWrapper>
       <ComponentWrapper>
         <MainHeader title={"Bill to pay"} />

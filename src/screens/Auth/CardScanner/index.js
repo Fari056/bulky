@@ -61,8 +61,8 @@ const requestCameraPermission = async () => {
 
 const CardScanner = ({ navigation, route }) => {
   const { navigate, goBack } = navigation;
-   const { scanDrivingCard, driverdata } = route?.params;
-   const { insuranceImg } = route?.params;
+  const { scanDrivingCard, driverdata } = route?.params;
+  const { insuranceImg } = route?.params;
   const [cameraPermissionGranted, setCameraPermissionGranted] = useState(false);
   const [cameraInitialized, setCameraInitialized] = useState(false);
   const [count, setCount] = useState(1);
@@ -70,7 +70,7 @@ const CardScanner = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const cameraRef = useRef();
   const device = useCameraDevice("back");
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     const checkPermissions = async () => {
       const hasPermission = await requestCameraPermission();
@@ -107,12 +107,12 @@ const CardScanner = ({ navigation, route }) => {
           const licenseImg = [...imageUris, url];
           await snd_db(licenseImg);
         } else {
-           const insuranceImg = [...imageUris, url];
-           navigate(SCREEN.scanDriverInsuranceCard, {
-             scanDrivingCard: true,
-             insuranceImg,
-             driverdata,
-           });
+          const insuranceImg = [...imageUris, url];
+          navigate(SCREEN.scanDriverInsuranceCard, {
+            scanDrivingCard: true,
+            insuranceImg,
+            driverdata,
+          });
         }
       }
     } catch (error) {

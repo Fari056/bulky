@@ -20,7 +20,7 @@ const AppNavigation = () => {
       />
       <Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'DeliveryList'}
+        initialRouteName={SCREEN.clientHome}
       >
         <Screen name="DeliveryList" component={DeliveryList} />
         <Screen name="DriverTracking" component={DriverTracking} />

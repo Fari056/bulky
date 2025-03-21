@@ -15,16 +15,16 @@ const Home = ({ navigation }) => {
   const userLocation = user_redux?.cords;
   const [data, setData] = useState(bookings);
   const [ignoreList, setIgnoreList] = useState([]);
-   const [driverLocation, setDriverLocation] = useState(userLocation);
+  const [driverLocation, setDriverLocation] = useState(userLocation);
   const RADIUS_IN_KM = 10;
   useEffect(() => {
-      if (userLocation) {
-        setDriverLocation(userLocation);
-      }
+    if (userLocation) {
+      setDriverLocation(userLocation);
+    }
     if (Array.isArray(bookings) && driverLocation) {
       const nearbyBookings = bookings.filter((booking) => {
         const bookingCoords = booking.pickupdetails.cords;
-         if (
+        if (
           !bookingCoords ||
           !bookingCoords.latitude ||
           !bookingCoords.longitude

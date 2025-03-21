@@ -13,10 +13,10 @@ const SelectPaymentMethods = ({ navigation, route }) => {
     const { navigate, goBack } = navigation
     const { wallet } = route?.params ?? false
     const { firstName,
-      lastName,
-      location,
-      phone: phoneNumber,
-      isActive, photo} = route?.params;
+        lastName,
+        location,
+        phone: phoneNumber,
+        isActive, photo } = route?.params;
     return (
         <MainWrapper>
             <Spacer isBasic />
@@ -48,16 +48,18 @@ const SelectPaymentMethods = ({ navigation, route }) => {
                     )
                 }} />
             <AbsoluteButton title={'NEXT'}
-            onPress={()=>{navigate(SCREEN.completeDriverProfile, {
-              firstName,
-              lastName,
-              location,
-              phone: phoneNumber,
-              isActive: true,
-              photo
-            });}}
+                onPress={() => {
+                    navigate(SCREEN.completeDriverProfile, {
+                        firstName,
+                        lastName,
+                        location,
+                        phone: phoneNumber,
+                        isActive: true,
+                        photo
+                    });
+                }}
             //  onPress={() => navigate(SCREEN?.appStack, { screen: SCREEN.addNewCard, params: { wallet: wallet } })}
-              />
+            />
         </MainWrapper>
     )
 }
