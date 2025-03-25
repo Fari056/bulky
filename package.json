@@ -11,7 +11,7 @@
     "android-1": "react-native run-android --active-arch-only",
     "pod-install": "cd ios && pod install && cd ..",
     "build-clean": "cd android && ./gradlew clean && cd ..",
-    "iPhone-13": "react-native run-ios --udid 8008984D-9109-45F2-85C0-0D75BB729925"
+    "iPhone-16": "react-native run-ios --udid CBF77071-7862-4F74-BA6D-539475A47317"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
