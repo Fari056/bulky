@@ -18,12 +18,15 @@ import { set_bookings } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
 import { getCurrentUserId } from '../../../backend/auth'
 import { Icons } from '../../../assets'
+import { calculateDistanceInKm } from '../../../utilities/helpers'
+
 const RequestDetail = ({ navigation, route }) => {
   const bookings = useSelector((state) => state.bookings);
   const { navigate, goBack } = navigation
   const dispatch = useDispatch();
   const [accept, setAccept] = useState(false)
   const { item = {} } = route.params || {};
+  console.log('item', item)
   const user = item.user || {};
   const { photo = "", firstName = "", lastName = "", phone = "" } = user;
   const itemImages = {
@@ -45,7 +48,8 @@ const RequestDetail = ({ navigation, route }) => {
     weight = "45kg",
     items: itemdetails = [],
   } = item;
-  distance = '30 min'
+  const distance = calculateDistanceInKm(item?.pickupdetails?.cords, item?.destinationdetails?.cords);
+
   const formatDate = (timestamp) => {
     return timestamp?.seconds
       ? moment.unix(timestamp.seconds).format("YYYY-MM-DD")

@@ -17,6 +17,8 @@ const Home = ({ navigation }) => {
   const [ignoreList, setIgnoreList] = useState([]);
   const [driverLocation, setDriverLocation] = useState(userLocation);
   const RADIUS_IN_KM = 10;
+  console.log('data', data)
+  console.log('userLocation', userLocation)
   useEffect(() => {
     if (userLocation) {
       setDriverLocation(userLocation);

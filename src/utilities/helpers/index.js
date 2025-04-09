@@ -3,6 +3,7 @@ import ImageCropPicker from "react-native-image-crop-picker";
 import { SCREEN } from "../../constants/screens";
 // import { Customers, Drafts, Messages, More, Projects } from "../../../assets/svg";
 import moment from "moment";
+import { getDistance } from 'geolib';
 
 export const takePhotoFromCamera = async () => {
     let img = false
@@ -94,3 +95,15 @@ export const FormatedDate = (objectDate) => {
 export const FormatDate = (date) => {
     return moment(date).format('DD/MM/YYYY')
 }
+
+export const calculateDistanceInKm = (pickup, destination) => {
+    if (!pickup?.latitude || !destination?.latitude) {
+        return 'N/A';
+    }
+    const distanceInMeters = getDistance(
+        { latitude: pickup?.latitude, longitude: pickup?.longitude },
+        { latitude: destination?.latitude, longitude: destination?.longitude }
+    );
+
+    return `${(distanceInMeters / 1000)?.toFixed(1)} km`;
+};
