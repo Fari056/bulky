@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FlatList, useWindowDimensions, View } from 'react-native'
+import { FlatList, StatusBar, useWindowDimensions, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { OnBoarding } from '../../../../tempData'
 import { AbsoluteWrapper, ImageBackgroundWrapper, MainWrapper, RegularText, SmallTitle } from '../../../components'
@@ -7,6 +7,7 @@ import { AbsoluteWrapper, ImageBackgroundWrapper, MainWrapper, RegularText, Smal
 import { AbsoluteButton } from '../../../components/appComponents/staticComponents'
 import { colors, SCREEN } from '../../../constants'
 import { styles } from './styles'
+import { StackActions } from '@react-navigation/native'
 
 
 const OnBoardings = ({ navigation }) => {
@@ -35,14 +36,13 @@ const OnBoardings = ({ navigation }) => {
             ref.current.scrollToIndex({ animated: true, index: currentSlideIndex + 1 });
             setActiveDotIndex(activeDotIndex + 1)
         } else {
-            // replace(SCREEN.accountType);
-            replace(SCREEN.questionaire);
+            navigation.navigate(SCREEN.questionaire);
         }
     };
 
     return (
         <MainWrapper>
-            {/* <StatusBar backgroundColor={'transparent'} barStyle={'light-content'} /> */}
+            <StatusBar backgroundColor={'transparent'} barStyle={'light-content'} />
             <FlatList
                 ref={ref}
                 data={OnBoarding}
@@ -53,7 +53,7 @@ const OnBoardings = ({ navigation }) => {
                 pagingEnabled
                 renderItem={({ item }) => {
                     return (
-                        <OnBoardingWrapper uri={item?.uri} title={item?.title} description={item?.description} skip={activeDotIndex != 2 && 'Skip'} onPressSkip={() => replace(SCREEN.questionaire)} />
+                        <OnBoardingWrapper uri={item?.uri} title={item?.title} description={item?.description} skip={activeDotIndex != 2 && 'Skip'} onPressSkip={() => navigation.navigate(SCREEN.questionaire)} />
                     )
                 }}
             />

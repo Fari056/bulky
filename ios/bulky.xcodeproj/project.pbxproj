@@ -45,21 +45,21 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bulky/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bulky/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = bulky/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		29E5D5C2DDED4A9CBAC08D40 /* Brother1816-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Light.ttf"; path = "../src/assets/fonts/Brother1816-Light.ttf"; sourceTree = "<group>"; };
+		29E5D5C2DDED4A9CBAC08D40 /* Brother1816-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Light.ttf"; path = "../src/assets/fonts/Brother1816-Light.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-bulky.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bulky.debug.xcconfig"; path = "Target Support Files/Pods-bulky/Pods-bulky.debug.xcconfig"; sourceTree = "<group>"; };
-		5593DDCCD04A469687BBC2ED /* Brother1816-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-ExtraBold.ttf"; path = "../src/assets/fonts/Brother1816-ExtraBold.ttf"; sourceTree = "<group>"; };
+		5593DDCCD04A469687BBC2ED /* Brother1816-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-ExtraBold.ttf"; path = "../src/assets/fonts/Brother1816-ExtraBold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-bulky.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bulky.release.xcconfig"; path = "Target Support Files/Pods-bulky/Pods-bulky.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-bulky-bulkyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bulky-bulkyTests.debug.xcconfig"; path = "Target Support Files/Pods-bulky-bulkyTests/Pods-bulky-bulkyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = bulky/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		821CA3BF9EE24B9590533031 /* Brother1816-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Bold.ttf"; path = "../src/assets/fonts/Brother1816-Bold.ttf"; sourceTree = "<group>"; };
+		821CA3BF9EE24B9590533031 /* Brother1816-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Bold.ttf"; path = "../src/assets/fonts/Brother1816-Bold.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-bulky-bulkyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bulky-bulkyTests.release.xcconfig"; path = "Target Support Files/Pods-bulky-bulkyTests/Pods-bulky-bulkyTests.release.xcconfig"; sourceTree = "<group>"; };
-		9183156A12004CC0AABD2FAB /* Brother1816-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Black.ttf"; path = "../src/assets/fonts/Brother1816-Black.ttf"; sourceTree = "<group>"; };
+		9183156A12004CC0AABD2FAB /* Brother1816-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Black.ttf"; path = "../src/assets/fonts/Brother1816-Black.ttf"; sourceTree = "<group>"; };
 		9E287AC5F4DB45DC6C8E0665 /* Pods_bulky.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bulky.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB73907B002DFDAAA4139E80 /* Pods_bulky_bulkyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bulky_bulkyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE32C1A3892140F88437D45E /* Brother1816-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Medium.ttf"; path = "../src/assets/fonts/Brother1816-Medium.ttf"; sourceTree = "<group>"; };
+		CE32C1A3892140F88437D45E /* Brother1816-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Medium.ttf"; path = "../src/assets/fonts/Brother1816-Medium.ttf"; sourceTree = "<group>"; };
 		D829125D2D266DAD002CA0F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FB48CE39DC704126B510E50A /* Brother1816-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Regular.ttf"; path = "../src/assets/fonts/Brother1816-Regular.ttf"; sourceTree = "<group>"; };
+		FB48CE39DC704126B510E50A /* Brother1816-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Brother1816-Regular.ttf"; path = "../src/assets/fonts/Brother1816-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +167,6 @@
 				FB48CE39DC704126B510E50A /* Brother1816-Regular.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {

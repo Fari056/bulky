@@ -9,7 +9,6 @@ const ScanDriverInsuranceCard = ({ navigation, route }) => {
   const { navigate } = navigation
   const { scanDrivingCard } = route?.params ?? false
   const { driverdata } = route.params;
-  console.log("vehicle data is ", driverdata)
   const { insuranceImg } = route?.params;
   return (
     <MainWrapper>

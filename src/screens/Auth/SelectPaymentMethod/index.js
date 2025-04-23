@@ -13,16 +13,25 @@ const SelectPaymentMethods = ({ navigation, route }) => {
     const { navigate, goBack } = navigation
     const { wallet } = route?.params ?? false
     const { firstName,
-      lastName,
-      location,
-      phone: phoneNumber,
-      isActive, photo} = route?.params;
+        lastName,
+        location,
+        phone: phoneNumber,
+        isActive, photo } = route?.params;
+
+
     return (
         <MainWrapper>
             <Spacer isBasic />
             <RowWrapper>
                 <Icon onPress={() => goBack()} name='chevron-left' type='entypo' size={18} />
-                <RegularText onPress={() => navigation?.goBack()} color={colors.appTextColor2}>Skip</RegularText>
+                <RegularText onPress={() => navigate(SCREEN.completeDriverProfile, {
+                    firstName,
+                    lastName,
+                    location,
+                    phone: phoneNumber,
+                    isActive: true,
+                    photo
+                })} color={colors.appTextColor2}>Skip</RegularText>
             </RowWrapper>
             <Spacer isBasic />
             <SmallTitle style={styles.title}>Connect Account</SmallTitle>
@@ -48,16 +57,18 @@ const SelectPaymentMethods = ({ navigation, route }) => {
                     )
                 }} />
             <AbsoluteButton title={'NEXT'}
-            onPress={()=>{navigate(SCREEN.completeDriverProfile, {
-              firstName,
-              lastName,
-              location,
-              phone: phoneNumber,
-              isActive: true,
-              photo
-            });}}
+                onPress={() => {
+                    navigate(SCREEN.completeDriverProfile, {
+                        firstName,
+                        lastName,
+                        location,
+                        phone: phoneNumber,
+                        isActive: true,
+                        photo
+                    });
+                }}
             //  onPress={() => navigate(SCREEN?.appStack, { screen: SCREEN.addNewCard, params: { wallet: wallet } })}
-              />
+            />
         </MainWrapper>
     )
 }

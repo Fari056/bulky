@@ -7,7 +7,7 @@ import { SCREEN, colors } from '../../../constants'
 import { height } from 'react-native-dimension'
 import { useSelector } from 'react-redux'
 import { useAuth } from '../../../hooks'
-import { _GoogleSignin } from '../../../backend/auth'
+import { _GoogleSignin, googleAuthentication } from '../../../backend/auth'
 import { saveData } from '../../../backend/utility'
 import { signup } from '../../../redux/actions'
 import { useDispatch } from 'react-redux'
@@ -25,7 +25,24 @@ const SignUp = ({ navigation }) => {
     phoneNumber, setPhone,
     SignUpClient, loading
   } = useAuth()
+  const [googleLoading, setGoogleLoading] = useState(false);
   const accountType = useSelector((state) => state.account_type);
+
+  // const google = async () => {
+  //   try {
+  //     const auth_user = await googleAuthentication(setGoogleLoading);
+  //     if (!auth_user) {
+  //       setGoogleLoading(false);
+  //       return;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during Google Sign-up:", error);
+  //   }
+  //   finally {
+  //     setGoogleLoading(false);
+  //   }
+  // }
+
   const google = async () => {
     try {
       const data = await _GoogleSignin();

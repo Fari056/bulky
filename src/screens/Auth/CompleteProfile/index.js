@@ -12,7 +12,7 @@ const CompleteProfile = ({ navigation, route }) => {
   const RBSheet1 = useRef();
 
   const {
-    CompleteProfile, loading,
+    CompleteProfile: completeProfile, loading,
     phoneNumber, setPhone,
     profile, setProfile,
     firstName, setFirstName,
@@ -83,7 +83,7 @@ const CompleteProfile = ({ navigation, route }) => {
           title={"NEXT"}
           isLoading={loading}
           // onPress={() => account_redux !== 'client' ? navigate(SCREEN.selectPaymentMethods) : replace(SCREEN.appStack)} />
-          onPress={CompleteProfile}
+          onPress={completeProfile}
         />
       </ScrollView>
       {/* <AbsoluteButton title={'NEXT'} onPress={() => account_redux == 'driver' ? navigate(SCREEN.completeDriverProfile) : account_redux == 'helper' ? replace(SCREEN.driverStack) : replace(SCREEN.appStack)} /> */}

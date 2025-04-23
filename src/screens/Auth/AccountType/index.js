@@ -11,10 +11,12 @@ const AccountType = ({ navigation }) => {
     const { navigate } = navigation
     const [activeAccount, setActiveAccount] = useState(-1);
     const dispatch = useDispatch()
+
     const setUserAccount = (index) => {
         setActiveAccount(index)
         dispatch(set_account_type(index === 0 ? 'client' : index === 1 ? 'driver' : 'helper'))
     }
+
     return (
         <MainWrapper>
             <Spacer isDoubleBase />

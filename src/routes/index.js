@@ -64,14 +64,6 @@ const Routes = () => {
           {(user == null || !user?.isActive) && <AuthNavigation />}
           {isActive && user.type == "client" && <AppNavigation />}
           {isActive && user.type != "client" && <DriverAppNavigation />}
-
-
-          {/* <Navigator screenOptions={{ headerShown: false }}
-                        initialRouteName={SCREEN.authStack}>
-                        <Screen name={SCREEN.authStack} component={AuthNavigation} />
-                        <Screen name={SCREEN.appStack} component={AppNavigation} />
-                        <Screen name={SCREEN.driverStack} component={DriverAppNavigation} />
-                    </Navigator> */}
         </NavigationContainer>
       )}
     </SafeAreaView>

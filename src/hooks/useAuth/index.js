@@ -6,6 +6,7 @@ import { getData, saveData, uploadProfileImage } from '../../backend/utility'
 import { SCREEN } from '../../constants'
 import { useNavigation } from '@react-navigation/native'
 import { logout, set_account_type, signin } from '../../redux/actions'
+import { ToastError } from '../../utilities'
 
 export const useAuth = () => {
     const { replace, navigate } = useNavigation()
@@ -47,8 +48,6 @@ export const useAuth = () => {
     }
 
     const SignUpClient = async () => {
-
-
         if (validations()) {
             // console.log(account_type_redux)
             const USER = {
@@ -87,9 +86,9 @@ export const useAuth = () => {
             try {
                 setLoading(true)
                 let _user = await signIn(email.toLocaleLowerCase().trim(), password)
+                console.log('user', _user)
                 if (_user.res) {
                     let data = await getData('users', _user.user)
-                    console.log(data)
                     if (data) {
                         if (!data.isActive) {
                             replace(SCREEN.completeProfile)
@@ -108,6 +107,7 @@ export const useAuth = () => {
             }
         }
     }
+
     const updateProfile = async (_uid, profile, updatedData) => {
         try {
             setLoading(true);
@@ -128,15 +128,26 @@ export const useAuth = () => {
             setLoading(false);
         }
     };
+
     const CompleteProfile = async () => {
+        if (!firstName || !lastName || !location || !phoneNumber || !profile) {
+            console.log('Please fill all the fields')
+            ToastError('Please fill all the fields')
+            return;
+        }
+        setLoading(true);
         const _uid = await getCurrentUserId();
         const updatedData = {
             firstName,
             lastName,
             location,
             phone: phoneNumber,
-            isActive: true,
+
+
         };
+        if (account_type_redux == 'client') {
+            updatedData.isActive = true
+        }
         const profileData = await updateProfile(_uid, profile, updatedData);
         if (profileData.type === "driver") {
             navigate(SCREEN.selectPaymentMethods, {

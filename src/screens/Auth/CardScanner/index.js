@@ -32,12 +32,13 @@ import { saveData, uploadScan } from "../../../backend/utility";
 import { getCurrentUserId } from "../../../backend/auth";
 import { signin } from "../../../redux/actions";
 import { request, PERMISSIONS, RESULTS } from "react-native-permissions";
+
 const requestCameraPermission = async () => {
-  const permission = Platform.select({
-    ios: PERMISSIONS.IOS.CAMERA,
-    android: PERMISSIONS.ANDROID.CAMERA,
-  });
   try {
+    const permission = Platform.select({
+      ios: PERMISSIONS.IOS.CAMERA,
+      android: PERMISSIONS.ANDROID.CAMERA,
+    })
     const result = await request(permission);
     if (result === RESULTS.GRANTED) {
       console.log("Camera permission granted");
@@ -61,8 +62,8 @@ const requestCameraPermission = async () => {
 
 const CardScanner = ({ navigation, route }) => {
   const { navigate, goBack } = navigation;
-   const { scanDrivingCard, driverdata } = route?.params;
-   const { insuranceImg } = route?.params;
+  const { scanDrivingCard, driverdata } = route?.params;
+  const { insuranceImg } = route?.params;
   const [cameraPermissionGranted, setCameraPermissionGranted] = useState(false);
   const [cameraInitialized, setCameraInitialized] = useState(false);
   const [count, setCount] = useState(1);
@@ -70,7 +71,8 @@ const CardScanner = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const cameraRef = useRef();
   const device = useCameraDevice("back");
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const checkPermissions = async () => {
       const hasPermission = await requestCameraPermission();
@@ -107,12 +109,12 @@ const CardScanner = ({ navigation, route }) => {
           const licenseImg = [...imageUris, url];
           await snd_db(licenseImg);
         } else {
-           const insuranceImg = [...imageUris, url];
-           navigate(SCREEN.scanDriverInsuranceCard, {
-             scanDrivingCard: true,
-             insuranceImg,
-             driverdata,
-           });
+          const insuranceImg = [...imageUris, url];
+          navigate(SCREEN.scanDriverInsuranceCard, {
+            scanDrivingCard: true,
+            insuranceImg,
+            driverdata,
+          });
         }
       }
     } catch (error) {

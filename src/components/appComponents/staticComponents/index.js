@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, forwardRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   TouchableOpacity,
   View,
@@ -480,14 +480,15 @@ export const ImagePickerComponent = ({ onImagesSelected }) => {
     if (!hasPermission) return;
 
     try {
-      const selectedImages = await ImagePicker.openPicker({ multiple: true });
+      const selectedImages = await ImagePicker.openPicker({ multiple: true, mediaType: 'photo' });
       setImages((prevImages) => [...prevImages, ...selectedImages]);
-      const imageUrls = await Promise.all(
-        selectedImages.map(async (image) => await uploadImage(image))
-      );
-      const validImageUrls = imageUrls.filter((url) => url !== null);
-      onImagesSelected(validImageUrls);
-      // console.log("image url is ", validImageUrls)
+      onImagesSelected((prevImages) => [...prevImages, ...selectedImages]);
+      return
+      // const imageUrls = await Promise.all(
+      //   selectedImages.map(async (image) => await uploadImage(image))
+      // );
+      // const validImageUrls = imageUrls.filter((url) => url !== null);
+      // // console.log("image url is ", validImageUrls)
     } catch (error) {
       console.error("Error  ", error);
     }
@@ -668,16 +669,15 @@ export const Verification = () => {
   );
 };
 // ENTER PICKUP LOCATION
-export const PickupPoints = forwardRef(
-  ({
-    pickupAutocompleteRef,
-    destinationAutocompleteRef,
-    onChangeDestination,
-    showBill,
-    onPressClose,
-    onPressSelectDate,
-    onChangePickupPoint,
-  }) => (
+// export const PickupPoints = forwardRef(
+export const PickupPoints = (({ pickupAutocompleteRef,
+  destinationAutocompleteRef,
+  onChangeDestination,
+  showBill,
+  onPressClose,
+  onPressSelectDate,
+  onChangePickupPoint, }) => {
+  return (
     <Wrapper>
       <Spacer isSmall />
       <RowWrapperBasic>
@@ -772,71 +772,242 @@ export const PickupPoints = forwardRef(
       )}
     </Wrapper>
   )
-);
-export const Pickup
-  = forwardRef(
-    ({
-      pickupAutocompleteRef,
-      destinationAutocompleteRef,
-      showBill, onPressClose, onPressSelectDate, onChangePickupPoint
-    }) => (
-      <Wrapper>
-        <Spacer isSmall />
-        <RowWrapperBasic>
-          <Icon
-            name="radio-btn-active"
-            type="fontisto"
-            color={colors.appIcon12}
-            size={16}
-          />
-          <GooglePlacesAutocomplete
-            ref={pickupAutocompleteRef}
-            placeholder="EnterPickup Point"
-            // minLength={2}
-            fetchDetails={true}
-            onPress={(data, details) => onChangePickupPoint(data, details)}
-            query={{
-              key: GOOGLE_API_KEY,
-              language: "en",
-            }}
-            styles={{
-              container: styles.autocompleteContainer,
-              listView: styles.listView,
-              textInput: styles.textInput,
-            }}
-          />
-        </RowWrapperBasic>
-        <Wrapper style={[styles.vl]} />
-        <Spacer isBasic />
-        {showBill && (
-          <>
-            <Spacer isBasic />
-            <RowWrapper style={{ marginHorizontal: 0 }}>
-              <RowWrapperBasic>
-                <>
-                  <PrimaryImage source={Images.bill} size={22} />
-                  <ButtonColored
-                    testStyle={styles.receipentBtnTxt}
-                    style={styles.receipentBtn}
-                    text="Receipt Bill"
-                  />
-                  <RegularText style={styles.fileName}>
-                    Image 152526{" "}
-                  </RegularText>
-                </>
-              </RowWrapperBasic>
-              <Icon
-                name="closecircleo"
-                type="antdesign"
-                onPress={onPressClose}
-                size={18}
-              />
-            </RowWrapper>
-          </>
-        )}
-      </Wrapper>
-    )
+})
+
+// export const PickupPoints = (
+//   ({
+//     pickupAutocompleteRef,
+//     destinationAutocompleteRef,
+//     onChangeDestination,
+//     showBill,
+//     onPressClose,
+//     onPressSelectDate,
+//     onChangePickupPoint,
+//   }) => (
+//     <Wrapper>
+//       <Spacer isSmall />
+//       <RowWrapperBasic>
+//         <Icon
+//           name="radio-btn-active"
+//           type="fontisto"
+//           color={colors.appIcon12}
+//           size={16}
+//         />
+//         <GooglePlacesAutocomplete
+//           ref={pickupAutocompleteRef}
+//           placeholder="Pickup Point"
+//           // minLength={2}
+//           fetchDetails={true}
+//           // onPress={(data, details) => onChangePickupPoint(data, details)}
+//           onPress={(data, details) => {
+//             if (
+//               data &&
+//               details &&
+//               details.geometry &&
+//               details.geometry.location
+//             ) {
+//               onChangePickupPoint(data, details);
+//             } else {
+//               console.error("Invalid data or details", data, details);
+//             }
+//           }}
+//           query={{
+//             key: GOOGLE_API_KEY,
+//             language: "en",
+//           }}
+//           styles={{
+//             container: styles.autocompleteContainer,
+//             listView: styles.listView,
+//             textInput: styles.textInput,
+//           }}
+//         />
+//       </RowWrapperBasic>
+//       <Wrapper style={[styles.vl]} />
+//       <RowWrapperBasic>
+//         <Icon
+//           name="map-marker"
+//           type="material-community"
+//           color={colors.appIcon11}
+//           size={22}
+//         />
+//         <GooglePlacesAutocomplete
+//           placeholder="Destination"
+//           ref={destinationAutocompleteRef}
+//           // minLength={2}
+//           fetchDetails={true}
+//           onPress={(data, details) => onChangeDestination(data, details)}
+//           query={{
+//             key: GOOGLE_API_KEY,
+//             language: "en",
+//           }}
+//           styles={{
+//             container: styles.autocompleteContainer,
+//             listView: styles.listView,
+//             textInput: styles.textInput,
+//           }}
+//         />
+//       </RowWrapperBasic>
+//       <Spacer isBasic />
+//       {/* <RowWrapperBasic >
+//                 <Icon name='calendar' type='antdesign' color={colors.appIcon10} size={22} />
+//                 <TextInputSearch onPress={onPressSelectDate} left right={<Icon name="chevron-small-right" type="entypo" color={colors.appIcon15} />} editable={false} value={'Now'} containerStyle={[styles.inputBorder, { marginLeft: width(3) }]} />
+//             </RowWrapperBasic> */}
+//       {showBill && (
+//         <>
+//           <Spacer isBasic />
+//           <RowWrapper style={{ marginHorizontal: 0 }}>
+//             <RowWrapperBasic>
+//               <>
+//                 <PrimaryImage source={Images.bill} size={22} />
+//                 <ButtonColored
+//                   testStyle={styles.receipentBtnTxt}
+//                   style={styles.receipentBtn}
+//                   text="Receipt Bill"
+//                 />
+//                 <RegularText style={styles.fileName}>Image 152526 </RegularText>
+//               </>
+//             </RowWrapperBasic>
+//             <Icon
+//               name="closecircleo"
+//               type="antdesign"
+//               onPress={onPressClose}
+//               size={18}
+//             />
+//           </RowWrapper>
+//         </>
+//       )}
+//     </Wrapper>
+//   )
+// );
+
+export const Pickup = (({
+  pickupAutocompleteRef,
+  destinationAutocompleteRef,
+  showBill, onPressClose, onPressSelectDate, onChangePickupPoint
+}) => {
+  return (
+    <Wrapper>
+      <Spacer isSmall />
+      <RowWrapperBasic>
+        <Icon
+          name="radio-btn-active"
+          type="fontisto"
+          color={colors.appIcon12}
+          size={16}
+        />
+        <GooglePlacesAutocomplete
+          ref={pickupAutocompleteRef}
+          placeholder="EnterPickup Point"
+          // minLength={2}
+          fetchDetails={true}
+          onPress={(data, details) => onChangePickupPoint(data, details)}
+          query={{
+            key: GOOGLE_API_KEY,
+            language: "en",
+          }}
+          styles={{
+            container: styles.autocompleteContainer,
+            listView: styles.listView,
+            textInput: styles.textInput,
+          }}
+        />
+      </RowWrapperBasic>
+      <Wrapper style={[styles.vl]} />
+      <Spacer isBasic />
+      {showBill && (
+        <>
+          <Spacer isBasic />
+          <RowWrapper style={{ marginHorizontal: 0 }}>
+            <RowWrapperBasic>
+              <>
+                <PrimaryImage source={Images.bill} size={22} />
+                <ButtonColored
+                  testStyle={styles.receipentBtnTxt}
+                  style={styles.receipentBtn}
+                  text="Receipt Bill"
+                />
+                <RegularText style={styles.fileName}>
+                  Image 152526{" "}
+                </RegularText>
+              </>
+            </RowWrapperBasic>
+            <Icon
+              name="closecircleo"
+              type="antdesign"
+              onPress={onPressClose}
+              size={18}
+            />
+          </RowWrapper>
+        </>
+      )}
+    </Wrapper>
   )
+})
+
+// export const Pickup = (
+//     ({
+//       pickupAutocompleteRef,
+//       destinationAutocompleteRef,
+//       showBill, onPressClose, onPressSelectDate, onChangePickupPoint
+//     }) => (
+//       <Wrapper>
+//         <Spacer isSmall />
+//         <RowWrapperBasic>
+//           <Icon
+//             name="radio-btn-active"
+//             type="fontisto"
+//             color={colors.appIcon12}
+//             size={16}
+//           />
+//           <GooglePlacesAutocomplete
+//             ref={pickupAutocompleteRef}
+//             placeholder="EnterPickup Point"
+//             // minLength={2}
+//             fetchDetails={true}
+//             onPress={(data, details) => onChangePickupPoint(data, details)}
+//             query={{
+//               key: GOOGLE_API_KEY,
+//               language: "en",
+//             }}
+//             styles={{
+//               container: styles.autocompleteContainer,
+//               listView: styles.listView,
+//               textInput: styles.textInput,
+//             }}
+//           />
+//         </RowWrapperBasic>
+//         <Wrapper style={[styles.vl]} />
+//         <Spacer isBasic />
+//         {showBill && (
+//           <>
+//             <Spacer isBasic />
+//             <RowWrapper style={{ marginHorizontal: 0 }}>
+//               <RowWrapperBasic>
+//                 <>
+//                   <PrimaryImage source={Images.bill} size={22} />
+//                   <ButtonColored
+//                     testStyle={styles.receipentBtnTxt}
+//                     style={styles.receipentBtn}
+//                     text="Receipt Bill"
+//                   />
+//                   <RegularText style={styles.fileName}>
+//                     Image 152526{" "}
+//                   </RegularText>
+//                 </>
+//               </RowWrapperBasic>
+//               <Icon
+//                 name="closecircleo"
+//                 type="antdesign"
+//                 onPress={onPressClose}
+//                 size={18}
+//               />
+//             </RowWrapper>
+//           </>
+//         )}
+//       </Wrapper>
+//     )
+//   )
+
 export const SmallTitleWithDesc = ({
   title,
   location,

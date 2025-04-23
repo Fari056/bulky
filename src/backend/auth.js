@@ -3,8 +3,9 @@ import '@react-native-firebase/auth';
 import '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import { ToastError } from '../utilities';
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-// import appleAuth from '@invertase/react-native-apple-authentication';
+import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
+import appleAuth from '@invertase/react-native-apple-authentication';
+import firestore from "@react-native-firebase/firestore";
 
 export async function signUp(USER) {
   let success = true;
@@ -37,6 +38,7 @@ export async function signIn(email, password, rememberme) {
     })
     .catch(function (error) {
       ToastError(error?.code)
+      console.log('error', error?.code)
       success = { res: false, error: error.message };
     });
   return success;
@@ -80,28 +82,6 @@ export async function getCurrentUserToken() {
   return await firebase.auth().currentUser.getIdToken()
 }
 
-// export const AppleAuthentication = async (setLoading) => {
-//   setLoading(true)
-//   try {
-//     const appleAuthRequestResponse = await appleAuth.performRequest({
-//       requestedOperation: appleAuth.Operation.LOGIN,
-//       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-//     });
-//     if (!appleAuthRequestResponse.identityToken) {
-//       setLoading(false)
-//       console.log('Apple Sign-In failed - no identity token returned')
-//     }
-//     const { identityToken, nonce } = appleAuthRequestResponse;
-//     const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
-//     const user = await auth().signInWithCredential(appleCredential)
-//     // setLoading(false)
-//     return user
-//   }
-//   catch (error) {
-//     setLoading(false)
-//     console.log(error.message)
-//   }
-// }
 export const _GoogleSignin = async () => {
   const fetch = require("node-fetch");
   const checkGoogleAccountStatus = async (idToken) => {
@@ -141,7 +121,66 @@ export const _GoogleSignin = async () => {
     return null;
   }
 };
-import firestore from "@react-native-firebase/firestore";
+
+export async function googleAuthentication(setLoading) {
+  setLoading(true)
+  try {
+    await GoogleSignin.hasPlayServices({
+      showPlayServicesUpdateDialog: true,
+    });
+
+    const userInfo = await GoogleSignin.signIn();
+    // console.log('User Info --> ', userInfo);
+    const credential = auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken)
+
+    const user = await auth().signInWithCredential(credential)
+    return user
+
+
+  } catch (error) {
+    setLoading(false)
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      // user cancelled the login flow
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      ToastError('Google authentication is in progress already')
+      console.log('Google authentication is in progress already')
+      // operation (e.g. sign in) is in progress already
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      ToastError('Play services not available or outdated')
+      console.log('Play services not available or outdated')
+      // play services not available or outdated
+    } else {
+      ToastError(error.message)
+      console.log(error.message)
+      // some other error happened
+    }
+    // 
+  }
+}
+
+export const AppleAuthentication = async (setLoading) => {
+  setLoading(true)
+  try {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+    if (!appleAuthRequestResponse.identityToken) {
+      setLoading(false)
+      console.log('Apple Sign-In failed - no identity token returned')
+    }
+    const { identityToken, nonce } = appleAuthRequestResponse;
+    const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
+    const user = await auth().signInWithCredential(appleCredential)
+    // setLoading(false)
+    return user
+  }
+  catch (error) {
+    setLoading(false)
+    console.log(error.message)
+  }
+}
+
 export async function deleteAccount_(password) {
   let success = false;
   const currentUser = auth().currentUser;
@@ -166,4 +205,3 @@ export async function deleteAccount_(password) {
     return { success: false, message: error.message };
   }
 }
-
