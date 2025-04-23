@@ -72,7 +72,7 @@ const CardScanner = ({ navigation, route }) => {
   const cameraRef = useRef();
   const device = useCameraDevice("back");
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     const checkPermissions = async () => {
       const hasPermission = await requestCameraPermission();

@@ -17,6 +17,8 @@ const Home = ({ navigation }) => {
   const [ignoreList, setIgnoreList] = useState([]);
   const [driverLocation, setDriverLocation] = useState(userLocation);
   const RADIUS_IN_KM = 10;
+  console.log('data', data)
+  console.log('userLocation', userLocation)
   useEffect(() => {
     if (userLocation) {
       setDriverLocation(userLocation);
@@ -52,7 +54,6 @@ const Home = ({ navigation }) => {
       setData(nearbyBookings);
     }
   }, [bookings, driverLocation, ignoreList]);
-
   useEffect(() => {
     const res = async () => {
       await request_Permission();
@@ -64,7 +65,6 @@ const Home = ({ navigation }) => {
     };
     res();
   }, []);
-
   const token_ = async () => {
     try {
       let token = await getToken();
@@ -101,8 +101,8 @@ const Home = ({ navigation }) => {
       <RequestCard
         name={user?.firstName || ""}
         photo={user?.photo || ""}
-        price={deliverydetails?.totalcharges ?? deliverydetails?.totalCharges}
-        onPressAccept={() => navigate(SCREEN?.driverRequestDetail, { item })}
+        price={deliverydetails?.totalcharges}
+        onPressAccept={() => navigate(SCREEN.driverRequestDetail, { item })}
         onPressChat={() => navigate(SCREEN.driverChat)}
         onPressPhone={() => Linking.openURL(`tel:${user?.phone}`)}
         date={formatDate(date)}

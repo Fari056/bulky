@@ -19,7 +19,7 @@ export const SummeryProductCard = ({ title, onPress, item }) => {
             </RowWrapper>
             <Spacer isSmall />
             <RegularText style={styles.text}>
-                {item?.selectedItem?.title} {item.size} size, quantity ( {item?.selectedItem?.qty ?? '1'} )
+                {item?.selectedItem?.title} size, quantity ( {item?.selectedItem?.count} )
             </RegularText>
         </Wrapper>
     )

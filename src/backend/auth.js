@@ -17,8 +17,6 @@ export async function signUp(USER) {
     })
     .catch(function (error) {
       success = false;
-      console.log('error', error.message)
-      ToastError(error?.message)
       // console.log(error.code + ': ' + error.message);
       // Toast.show(error.code + ': ' + error.message);
     });
@@ -107,15 +105,15 @@ export const _GoogleSignin = async () => {
     });
     const response = await GoogleSignin.signIn();
     const { idToken, user } = response.data;
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     await auth().signInWithCredential(googleCredential);
     const isAccountDeleted = await checkGoogleAccountStatus(idToken);
-    const firebaseUserCredential = await auth().signInWithCredential(googleCredential);
-    const firebaseUser = firebaseUserCredential.user;
-    const uid = firebaseUser.uid;
-    const isNewUser = firebaseUserCredential.additionalUserInfo.isNewUser;
-    console.log("userID:", uid, isNewUser);
-    return { user, uid, accountDeleted: isAccountDeleted, isNewUser };
+     const firebaseUserCredential = await auth().signInWithCredential(googleCredential);
+     const firebaseUser = firebaseUserCredential.user;
+     const uid = firebaseUser.uid;
+     const isNewUser = firebaseUserCredential.additionalUserInfo.isNewUser;
+     console.log("userID:", uid, isNewUser);
+     return { user, uid, accountDeleted: isAccountDeleted, isNewUser };
   } catch (error) {
     console.log("Error during Google Sign-In:", error);
     return null;

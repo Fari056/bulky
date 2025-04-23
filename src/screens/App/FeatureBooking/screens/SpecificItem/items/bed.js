@@ -1,22 +1,52 @@
-import React from "react";
-import { FlatList, StyleSheet } from "react-native";
-import { totalSize, width } from "react-native-dimension";
+import { StyleSheet, FlatList, Dimensions } from "react-native";
+import React, { useState } from "react";
 import {
   ComponentWrapper,
+  DueButtons,
+  MainHeader,
   MainWrapper,
-  RadioButton,
   RegularText,
+  RowWrapper,
+  RadioButton,
   Spacer,
   TextInputSearch,
-  Wrapper
+  SelectableButtons,
+  Wrapper,
 } from "../../../../../../components";
-import { colors } from "../../../../../../constants";
-export const Bed = ({ title, selectedOption, setSelectedOption, data }) => {
-
+import { SelectableItem } from "../../../../../../components/appComponents/generalComponents";
+import { SCREEN, colors } from "../../../../../../constants";
+import { totalSize, width, height } from "react-native-dimension";
+const Bed = ({ route, navigation }) => {
+  const {
+    item,
+    pickupdetails,
+    destinationdetails,
+    itemdetails,
+    pickuppoint,
+    destination,
+  } = route.params;
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = [
+    { id: "1", label: "Headboard" },
+    { id: "2", label: "Footboard" },
+    { id: "3", label: " California King" },
+  ];
+  const { navigate, goBack } = navigation;
+  const { title } = route?.params?.item ?? false;
+  const handleContinue = () => {
+    navigate(SCREEN.SelectedItems, {
+      //   item: updatedItem,
+      //   pickupdetails,
+      //   destinationdetails,
+      //   itemdetails,
+      //   pickuppoint,
+      //   destination,
+    });
+  };
   const renderItem = ({ item }) => (
     <Wrapper style={styles.itemContainer}>
       <RadioButton
-        title={item?.label}
+        title={item.label}
         active={selectedOption === item.label}
         onPress={() => setSelectedOption(item.label)}
       />
@@ -26,7 +56,7 @@ export const Bed = ({ title, selectedOption, setSelectedOption, data }) => {
   return (
     <MainWrapper>
       <ComponentWrapper>
-        {/* <MainHeader title={"Item Details"} /> */}
+        <MainHeader title={"Item Details"} />
         <Spacer isBasic />
         <RegularText style={styles.text}>
           Select Items that you want to deliver
@@ -35,16 +65,16 @@ export const Bed = ({ title, selectedOption, setSelectedOption, data }) => {
         <TextInputSearch left editable={false} value={title} />
       </ComponentWrapper>
       <FlatList
-        data={data}
+        data={options}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
       />
-      {/* <DueButtons
+      <DueButtons
         onPress={handleContinue}
         text={"continue"}
         onBack={() => goBack()}
-      /> */}
+      />
     </MainWrapper>
   );
 };

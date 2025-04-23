@@ -1,4 +1,4 @@
-import { ACCOUNTTYPE, BOOKINGS, LOGIN, LOGOUT, SIGNUP, ADD_REVIEW, REQUEST_DATA } from '../types/index'
+import { ACCOUNTTYPE, BOOKINGS, LOGIN, LOGOUT, SIGNUP, ADD_REVIEW } from '../types/index'
 
 export const signin = payload => {
     return {
@@ -31,16 +31,10 @@ export const set_bookings = payload => {
     }
 }
 export const addReview = (review) => {
-    return {
-        type: ADD_REVIEW,
-        payload: review,
-    };
-};
-export const setRequestData = (data) => {
-    return {
-        type: REQUEST_DATA,
-        payload: data,
-    };
+  return {
+    type: ADD_REVIEW,
+    payload: review,
+  };
 };
 
 

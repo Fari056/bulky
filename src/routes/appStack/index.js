@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as App from "../../screens/App";
 import { SCREEN, colors } from "../../constants";
 import * as Driver from "../../screens/DriverSide";
+import { DeliveryList, DeliveryTracking } from "../../screens/App/UserScreen";
+import DriverTracking from "../../screens/DriverSide/DriverTracking";
 
 const Tab = createBottomTabNavigator();
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -20,6 +22,11 @@ const AppNavigation = () => {
         screenOptions={{ headerShown: false }}
         initialRouteName={SCREEN.clientHome}
       >
+        <Screen name="DeliveryList" component={DeliveryList} />
+        <Screen name="DriverTracking" component={DriverTracking} />
+
+        {/* User Flow Screens */}
+        <Screen name="UserDeliveryTracking" component={DeliveryTracking} />
         <Screen name={SCREEN.clientHome} component={App.ClientHome} />
         <Screen
           name={SCREEN.enterPickupPoint}
@@ -62,7 +69,6 @@ const AppNavigation = () => {
         <Screen name={SCREEN.SelectedItems} component={App.SelectedItems} />
         <Screen name={SCREEN.Bike} component={App.Bike} />
         <Screen name={SCREEN.Boxes} component={App.Boxes} />
-        <Screen name={SCREEN.Products} component={App.Products} />
         <Screen name={SCREEN.Boats} component={App.Boats} />
         <Screen name={SCREEN.location} component={App.Location} />
         <Screen name={SCREEN.Motorcycle} component={App.Motorcycle} />

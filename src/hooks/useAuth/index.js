@@ -59,23 +59,17 @@ export const useAuth = () => {
             try {
                 setLoading(true)
                 let uid = await signUp(USER)
-                console.log('uid', uid)
                 if (uid) {
                     delete USER.password
-                    USER.id = uid
                     let saved = await saveData('users', uid, USER)
-                    console.log('saved', saved)
                     if (saved) {
                         navigate(SCREEN?.signIn)
                     }
+                    setLoading(false)
                 }
-                return
-
+                setLoading(false)
             } catch (error) {
                 console.log('error', error)
-                setLoading(false)
-            }
-            finally {
                 setLoading(false)
             }
         }

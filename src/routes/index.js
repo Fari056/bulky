@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserId } from "../backend/auth";
 import { getData, getDataWithUser } from "../backend/utility";
 import { set_bookings, signin } from "../redux/actions";
+import Toast, { ErrorToast, SuccessToast } from "react-native-toast-message";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -66,6 +67,14 @@ const Routes = () => {
           {isActive && user.type != "client" && <DriverAppNavigation />}
         </NavigationContainer>
       )}
+      <Toast config={{
+        error: (props) => (
+          <ErrorToast {...props} text1NumberOfLines={3} text2NumberOfLines={3} />
+        ),
+        success: (props) => (
+          <SuccessToast {...props} text1NumberOfLines={3} text2NumberOfLines={3} />
+        ),
+      }} />
     </SafeAreaView>
   );
 };

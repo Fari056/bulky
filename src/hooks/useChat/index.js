@@ -17,69 +17,69 @@ export const useChat = (sender_id, receiver_id) => {
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
   const navigation = useNavigation();
-  const user_redux = useSelector((state) => state.user);
-  const onSend = useCallback(
-    (messages = []) => {
-      if (!messages[0]) return;
-      const newMessage = {
-        ...messages[0],
-        createdAt:
-          Date.parse(messages[0].createdAt) || new Date().toISOString(),
-        recieverId: receiver_id,
-        isSeen: false,
-        text: messages[0].text ?? "",
-        user: messages[0].user ?? {
-          _id: sender_id,
-          name: user_redux?.firstName || "User",
-        },
-      };
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, newMessage)
-      );
-      const message = {
-        id: receiver_id,
-        keys: [receiver_id, sender_id],
-        lastMessage: {
-          sender: sender_id,
-          text: newMessage?.text ?? "",
-          image: newMessage?.image ?? "",
-          createdAt: newMessage?.createdAt ?? "",
-          id: receiver_id,
-          receiverId: receiver_id,
-        },
-        users: [
-          {
-            _id: receiver_id,
-            userName: "reciever_name",
-            avatar: "",
-          },
-          {
-            _id: sender_id,
-            userName: `${user_redux?.firstName ?? "static_first_name"} ${user_redux?.lastName ?? ""
-              }`,
-            avatar: user_redux?.photo ?? "",
-          },
-        ],
-        messages: [newMessage],
-        createdAt: Date.parse(new Date()),
-        updatedAt: Date.parse(new Date()),
-      };
+ const user_redux = useSelector((state) => state.user);
+     const onSend = useCallback(
+       (messages = []) => {
+         if (!messages[0]) return;
+         const newMessage = {
+           ...messages[0],
+           createdAt:
+             Date.parse(messages[0].createdAt) || new Date().toISOString(),
+           recieverId: receiver_id,
+           isSeen: false,
+           text: messages[0].text ?? "",
+           user: messages[0].user ?? {
+             _id: sender_id,
+             name: user_redux?.firstName || "User",
+           },
+         };
+          setMessages((previousMessages) =>
+           GiftedChat.append(previousMessages, newMessage)
+         );
+         const message = {
+           id: receiver_id,
+           keys: [receiver_id, sender_id],
+           lastMessage: {
+             sender: sender_id,
+             text: newMessage.text,
+             image: newMessage.image ?? "",
+             createdAt: newMessage.createdAt,
+             id: receiver_id,
+             receiverId: receiver_id,
+           },
+           users: [
+             {
+               _id: receiver_id,
+               userName: "static_reciever_name",
+               avatar: "",
+             },
+             {
+               _id: sender_id,
+               userName: `${user_redux?.firstName ?? "static_first_name"} ${
+                 user_redux?.lastName ?? ""
+               }`,
+               avatar: user_redux?.photo ?? "",
+             },
+           ],
+           messages: [newMessage],
+           createdAt: Date.parse(new Date()),
+           updatedAt: Date.parse(new Date()),
+         };
 
-      addToArrayCustom("chats", receiver_id, "messages", newMessage)
-        .then((res) => {
-          if (!res) {
-            saveData("chats", receiver_id, message)
-              .then((res) => { })
-              .catch((error) => {
-                console.log("error of chat 1", error);
-              });
-          }
-        })
-        .catch((err) => console.log("err", err));
-    },
-    [receiver_id, sender_id, user_redux]
-  );
-
+         addToArrayCustom("chats", receiver_id, "messages", newMessage)
+           .then((res) => {
+             if (!res) {
+               saveData("chats", receiver_id, message)
+                 .then((res) => {})
+                 .catch((error) => {
+                   console.log("error of chat 1", error);
+                 });
+             }
+           })
+           .catch((err) => console.log("err", err));
+       },
+       [receiver_id, sender_id, user_redux]
+     );
   const onhandleSend = async (messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages[0])
@@ -108,8 +108,9 @@ export const useChat = (sender_id, receiver_id) => {
         },
         {
           _id: user_redux?.id ?? "static_user_id",
-          userName: `${user_redux?.firstName ?? "static_first_name"} ${user_redux?.lastName ?? ""
-            }`,
+          userName: `${user_redux?.firstName ?? "static_first_name"} ${
+            user_redux?.lastName ?? ""
+          }`,
           avatar: user_redux?.photo ?? "",
         },
       ],
@@ -121,7 +122,7 @@ export const useChat = (sender_id, receiver_id) => {
       .then((res) => {
         if (!res) {
           saveData("support", user_redux?.id, message)
-            .then((res) => { })
+            .then((res) => {})
             .catch((error) => {
               console.log("error of chat 1", error);
             });
@@ -140,7 +141,7 @@ export const useChat = (sender_id, receiver_id) => {
         image: newMessage.image || "",
       },
       user: {
-        id: sender_id || "",
+        id: sender_id|| "",
         userName: user_redux.firstName + " " + (user_redux?.lastName || ""),
         avatar: user_redux?.photo || "",
       },
@@ -180,7 +181,7 @@ export const useChat = (sender_id, receiver_id) => {
           text: "",
           createdAt: new Date(),
           user: {
-            _id: sender_id ?? "static_user_id",
+            _id:sender_id ?? "static_user_id",
           },
           image: imageUrl,
         };
@@ -194,28 +195,22 @@ export const useChat = (sender_id, receiver_id) => {
 
   const renderInputToolbar = (props) => {
     return (
-      <Wrapper style={{ flexDirection: "row", alignItems: "center" }}>
-        <Wrapper style={{ width: width(82) }}>
-          <InputToolbar {...props} />
-        </Wrapper>
-        <Wrapper style={{ marginLeft: width(1), width: width(8) }}>
-          <TouchableOpacity style={{}}>
-            <Icon name="mic" type="feather" size={20} color={colors.iconColor1} />
-          </TouchableOpacity>
-        </Wrapper>
-        <Wrapper style={{ width: width(8) }}>
-          <TouchableOpacity
-            style={{ marginRight: 0 }}
-            onPress={handleImagePick}
-          >
-            <Icon
-              name="image"
-              type="feather"
-              size={20}
-              color={colors.iconColor1}
-            />
-          </TouchableOpacity>
-        </Wrapper>
+      <Wrapper style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        <InputToolbar {...props} />
+        <TouchableOpacity style={{ padding: 10, marginLeft: 10 }}>
+          <Icon name="mic" type="feather" size={20} color={colors.iconColor1} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ padding: 10, marginRight: width(10) }}
+          onPress={handleImagePick}
+        >
+          <Icon
+            name="image"
+            type="feather"
+            size={20}
+            color={colors.iconColor1}
+          />
+        </TouchableOpacity>
       </Wrapper>
     );
   };

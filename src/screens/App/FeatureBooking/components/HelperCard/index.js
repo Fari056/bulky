@@ -7,7 +7,7 @@ import { colors, fontFamily, fontSize } from '../../../../../constants'
 import { Icon } from 'react-native-elements';
 import { appStyles } from '../../../../../utilities'
 
-export const HelperCard = ({ onPress, count = 2, setCount, min }) => {
+export const HelperCard = ({ onPress, count = 2, setCount }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -21,13 +21,13 @@ export const HelperCard = ({ onPress, count = 2, setCount, min }) => {
                 </RowWrapperBasic>
                 <RowWrapperBasic>
                     <TouchableOpacity
-                        onPress={() => count > min && setCount(count - 1)}
+                        onPress={() => count > 2 && setCount(count - 1)}
                         style={styles.btn}>
                         <LargeText>-</LargeText>
                     </TouchableOpacity>
-                    <LargeText>{'1'}</LargeText>
+                    <LargeText>{count}</LargeText>
                     <TouchableOpacity
-                        onPress={() => count < 50 && setCount(count + 1)}
+                        onPress={() => count < 15 && setCount(count + 1)}
                         style={styles.btn}>
                         <LargeText>+</LargeText>
                     </TouchableOpacity>

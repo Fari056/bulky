@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react'
-import { height } from 'react-native-dimension'
+import { View, Text } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react'
 import { BottomSheet, ComponentWrapper, MainWrapper, ScrollView, Spacer } from '../../../components'
-import { ProfileForm } from '../../../components/appComponents/generalComponents'
 import { AbsoluteButton, EditProfile, TitleWithDescription } from '../../../components/appComponents/staticComponents'
-import { SCREEN } from '../../../constants'
-import { useAuth } from '../../../hooks'
+import { ProfileForm } from '../../../components/appComponents/generalComponents'
 import { Images, PickPhotoFromGallery, takePhotoFromCamera } from '../../../utilities'
+import { height } from 'react-native-dimension'
+import { SCREEN } from '../../../constants'
+import { useSelector } from 'react-redux'
+import { useAuth } from '../../../hooks'
 
 const CompleteProfile = ({ navigation, route }) => {
   const { replace, navigate } = navigation
@@ -19,7 +21,6 @@ const CompleteProfile = ({ navigation, route }) => {
     lastName, setLastName,
     location, setLocation,
   } = useAuth()
-
   useEffect(() => {
     if (route.params?.location) {
       setLocation(route.params.location);
@@ -36,11 +37,7 @@ const CompleteProfile = ({ navigation, route }) => {
     setProfile(image)
   }
   const snd = () => {
-    try {
-      navigate(SCREEN.Profilelocation);
-    } catch (error) {
-      console.log('error', error)
-    }
+    navigate(SCREEN.Profilelocation);
   };
   return (
     <MainWrapper>
