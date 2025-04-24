@@ -136,8 +136,6 @@ export const useAuth = () => {
             lastName,
             location,
             phone: phoneNumber,
-
-
         };
         if (account_type_redux == 'client') {
             updatedData.isActive = true
@@ -151,6 +149,7 @@ export const useAuth = () => {
                 phone: profileData.phone,
                 isActive: profileData.isActive,
                 photo: profileData.photo,
+                isProfileCompleted: false
             });
         } else {
             dispatch(signin(profileData));

@@ -12,7 +12,6 @@ export async function request_Permission() {
 }
 export async function getToken() {
   const token = await messaging().getToken();
-  console.log("dev token:-----", token);
   return token;
 }
 export function foreground_Listener() {

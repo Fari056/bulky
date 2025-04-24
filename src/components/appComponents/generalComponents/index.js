@@ -19,6 +19,7 @@ import { getData, saveData, UserDetails } from "../../../backend/utility"
 import { getCurrentUserId } from "../../../backend/auth"
 import { useDispatch } from "react-redux"
 import { signin } from "../../../redux/actions"
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 // onboarding flatlist render
 export const OnBoardingWrapper = ({ uri, skip, onPressSkip, title, description }) => {
   return (
@@ -285,7 +286,7 @@ export const SizeOptions = ({ onSelectionChange }) => {
 };
 
 //SIGNUP SCREEN
-export const ProfileForm = ({ firstName, onChangeFirstName, secondName, onChangeSecondName, phone, onChangePhone, location, onChangeLocation, onPress }) => {
+export const ProfileForm = ({ firstName, onChangeFirstName, secondName, onChangeSecondName, phone, onChangePhone, onPlaceSelected }) => {
 
   return (
     <>
@@ -308,16 +309,6 @@ export const ProfileForm = ({ firstName, onChangeFirstName, secondName, onChange
         placeholder={'Enter your Phone number...'}
         value={phone}
         onChangeText={onChangePhone}
-      />
-      <Spacer isSmall />
-      <TextInputBordered
-        title={'Location'}
-        placeholder={'Enter your location...'}
-        value={location}
-        onChangeText={onChangeLocation}
-        editable={false}
-        right={<PrimaryImage size={totalSize(2.8)} source={Icons.marker} />}
-        onPress={onPress}
       />
       <Spacer isSmall />
     </>

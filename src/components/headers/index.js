@@ -41,7 +41,13 @@ export const MainHeader = ({
     <Wrapper style={[styles.main_view, style]}>
       <TouchableOpacity
         style={styles.backIcon}
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          try {
+            navigation.goBack()
+          } catch (error) {
+            console.log("error in going back", error)
+          }
+        }}
       >
         <Icon
           name="chevron-back-outline"
@@ -113,7 +119,7 @@ export const MainHeaderRight = ({
     </Wrapper>
   );
 };
-export const DriverChatHeader = ({ phoneNumber, userName , photo }) => {
+export const DriverChatHeader = ({ phoneNumber, userName, photo }) => {
   const navigation = useNavigation();
   return (
     <Wrapper style={styles.driverChatHeaderWrapper}>

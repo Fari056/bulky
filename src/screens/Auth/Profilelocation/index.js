@@ -12,10 +12,10 @@ import { GOOGLE_API_KEY } from "@env";
 import { SCREEN } from "../../../constants";
 const { width, height } = Dimensions.get("window");
 const ProfileLocation = ({ navigation }) => {
-  const { goBack ,navigate} = navigation;
+  const { goBack, navigate } = navigation;
   const [region, setRegion] = useState({
-    latitude:  37.78825,
-    longitude:  -122.4324,
+    latitude: 37.78825,
+    longitude: -122.4324,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -41,33 +41,33 @@ const ProfileLocation = ({ navigation }) => {
       console.warn(error);
     }
   };
-   const onPlaceSelected = async (data, details = null) => {
-     if (details) {
-       const { lat, lng } = details.geometry.location;
-       setRegion({
-         latitude: lat,
-         longitude: lng,
-         latitudeDelta: 0.0922,
-         longitudeDelta: 0.0421,
-       });
-       setSelectedLocation({
-         address: data.description,
-         latitude: lat,
-         longitude: lng,
-       });
-     }
-   };
-const onContinue = () => {
-  if (selectedLocation) {
-    navigate(SCREEN.completeProfile, {
-      location: {
-        address: selectedLocation.address,
-        latitude: selectedLocation.latitude,
-        longitude: selectedLocation.longitude,
-      },
-    });
-  }
-};
+  const onPlaceSelected = async (data, details = null) => {
+    if (details) {
+      const { lat, lng } = details.geometry.location;
+      setRegion({
+        latitude: lat,
+        longitude: lng,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      });
+      setSelectedLocation({
+        address: data.description,
+        latitude: lat,
+        longitude: lng,
+      });
+    }
+  };
+  const onContinue = () => {
+    if (selectedLocation) {
+      navigate(SCREEN.completeProfile, {
+        location: {
+          address: selectedLocation.address,
+          latitude: selectedLocation.latitude,
+          longitude: selectedLocation.longitude,
+        },
+      });
+    }
+  };
 
   return (
     <MainWrapper>
