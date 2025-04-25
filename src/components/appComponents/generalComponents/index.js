@@ -4,7 +4,7 @@ import { SCREEN, colors } from "../../../constants"
 import { styles } from "./styles"
 import { width, height } from 'react-native-dimension'
 import LinearGradient from "react-native-linear-gradient"
-import { FlatList, Text, TouchableOpacity, View } from "react-native"
+import { FlatList, Text, TouchableOpacity, View, RefreshControl } from "react-native"
 import { DriverSettings, OnBoarding, Settings, VehiclesList, categories, userTypes } from "../../../../tempData"
 import { Icon, CheckBox } from "react-native-elements"
 import { totalSize } from 'react-native-dimension'
@@ -469,7 +469,7 @@ export const BookingsList = ({ onPressPhone, onPressChat }) => {
   )
 }
 
-export const HistoryList = ({ history, user }) => {
+export const HistoryList = ({ history, user, loading, onRefresh }) => {
   return (
     <FlatList
       data={history}
@@ -477,6 +477,16 @@ export const HistoryList = ({ history, user }) => {
       ItemSeparatorComponent={() => <Spacer isSmall />}
       ListHeaderComponent={() => <Spacer isBasic />}
       ListFooterComponent={() => <Spacer height={4} />}
+      showsVerticalScrollIndicator={false}
+      removeClippedSubviews={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={loading}
+          onRefresh={onRefresh}
+          colors={[colors.primary]}
+          tintColor={colors.primary}
+        />
+      }
       renderItem={({ item }) => (
         <HistoryCard
           name={user.firstName}
