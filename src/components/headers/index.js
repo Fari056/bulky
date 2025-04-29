@@ -23,7 +23,7 @@ export const HomeHeader = ({ title = 'Bulky', uri = Images.user2, onPressProfile
         <TouchableOpacity
           onPress={onPressProfile}
           activeOpacity={.8}>
-          <Avatar source={{ uri: user_redux?.photo ?? uri }} />
+          <Avatar source={{ uri: user_redux?.photo?.length > 0 ? user_redux?.photo : uri }} resizeMode={'cover'} />
         </TouchableOpacity>
       </RowWrapper>
     </Wrapper>

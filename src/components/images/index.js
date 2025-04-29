@@ -16,10 +16,10 @@ export const RoundImage = ({ source, styles = {}, size }) => {
             style={[{ height: size ?? defaultSize, width: size ?? defaultSize, borderRadius: 150 }, styles]} />
     )
 }
-export const Avatar = ({ source, styles = {}, size }) => {
+export const Avatar = ({ source, styles = {}, size, resizeMode }) => {
     let defaultSize = totalSize(4)
     return (
-        <Image source={source} resizeMode={'contain'}
+        <Image source={source} resizeMode={resizeMode ?? 'contain'}
             style={[{ height: size ?? defaultSize, width: size ?? defaultSize, borderRadius: 150 }, styles]} />
     )
 }
