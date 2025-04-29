@@ -90,6 +90,7 @@ const Construction = ({ route, navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
+        removeClippedSubviews={false}
       />
       <DueButtons
         onPress={handleContinue}

@@ -1614,6 +1614,7 @@ export const DriverReviews = ({ }) => {
       <FlatList
         data={DriverReview}
         ListFooterComponent={() => <Spacer height={height(7)} />}
+        removeClippedSubviews={false}
         ItemSeparatorComponent={() => (
           <>
             <Spacer isSmall />
@@ -1774,6 +1775,7 @@ export const VehicleDetail = ({ isCollapsed, onPressCollapse }) => {
             renderItem={renderImage}
             horizontal
             style={{ marginHorizontal: width(5) }}
+            removeClippedSubviews={false}
           />
         </Wrapper>
       )}

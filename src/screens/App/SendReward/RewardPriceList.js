@@ -21,6 +21,7 @@ const RewardPriceList = () => {
                 }}
                 ItemSeparatorComponent={() => <Spacer isBasic />}
                 ListHeaderComponent={() => <Spacer isBasic />}
+                removeClippedSubviews={false}
             />
         </ComponentWrapper>
     )

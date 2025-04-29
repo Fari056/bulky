@@ -51,6 +51,7 @@ const OnBoardings = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 pagingEnabled
+                removeClippedSubviews={false}
                 renderItem={({ item }) => {
                     return (
                         <OnBoardingWrapper uri={item?.uri} title={item?.title} description={item?.description} skip={activeDotIndex != 2 && 'Skip'} onPressSkip={() => navigation.navigate(SCREEN.questionaire)} />

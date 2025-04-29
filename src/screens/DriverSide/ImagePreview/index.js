@@ -18,7 +18,7 @@ const ImagePreview = ({ navigation }) => {
         contentContainerStyle={{ alignItems: 'center' }}
         pagingEnabled={true}
         horizontal
-
+        removeClippedSubviews={false}
         renderItem={({ item }) => {
           return (
             <View>

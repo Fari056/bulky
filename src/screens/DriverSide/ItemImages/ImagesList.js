@@ -12,6 +12,7 @@ const ImagesList = ({ onPressImg }) => {
             ItemSeparatorComponent={() => <Spacer isBasic />}
             ListHeaderComponent={() => <Spacer isBasic />}
             contentContainerStyle={{ alignItems: 'center' }}
+            removeClippedSubviews={false}
             renderItem={({ item }) => {
                 return (
                     <TouchableOpacity activeOpacity={0.7} onPress={onPressImg}>

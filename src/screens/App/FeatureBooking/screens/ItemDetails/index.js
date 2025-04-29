@@ -77,6 +77,7 @@ const ItemDetails = ({ navigation, route }) => {
           ItemSeparatorComponent={<Spacer isSmall />}
           ListHeaderComponent={<Spacer isSmall />}
           ListFooterComponent={<Spacer isSmall />}
+          removeClippedSubviews={false}
           renderItem={({ item }) => {
             return <ItemCard title={item?.title} onPress={() => press(item)} />;
           }}

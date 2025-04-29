@@ -117,6 +117,7 @@ export const PaymentBottomSheet = ({ innerRef, heights, onPressCard }) => {
                     ListHeaderComponent={() => <Spacer isSmall />}
                     ListFooterComponent={() => <Spacer height={height(7)} />}
                     keyExtractor={item => item.id}
+                    removeClippedSubviews={false}
                     renderItem={({ item }) => {
                         return (
                             <TouchableOpacity activeOpacity={0.9} style={styles.paymentWrapper} onPress={() => onPressCard(item)}>
@@ -175,6 +176,7 @@ export const CancelRequestBottomSheet = ({
           ListHeaderComponent={() => <Spacer isSmall />}
           ListFooterComponent={() => <Spacer height={height(3)} />}
           keyExtractor={(item) => item.id}
+        removeClippedSubviews={false}
           renderItem={({ item }) => (
             <TouchableOpacity
               activeOpacity={0.8}

@@ -15,6 +15,7 @@ const UserList = ({ onPressUser }) => {
                 ItemSeparatorComponent={() => <Spacer isBasic />}
                 ListHeaderComponent={() => <Spacer height={height(3)} />}
                 ListFooterComponent={() => <Spacer height={height(3)} />}
+                removeClippedSubviews={false}
                 renderItem={({ item }) => {
                     return (
                         <ChatUserCard onPress={onPressUser} name={item?.name} time={item?.time} message={item?.message} source={{ uri: item?.profile }} />

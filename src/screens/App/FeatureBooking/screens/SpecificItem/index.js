@@ -115,6 +115,7 @@ const SpecificItem = ({ route, navigation }) => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={<Spacer isBasic />}
           ItemSeparatorComponent={<Spacer isBasic />}
+          removeClippedSubviews={false}
           // ListFooterComponent={<Spacer isSmall />}
           renderItem={({ item, index }) => {
             return (

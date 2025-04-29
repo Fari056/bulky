@@ -51,6 +51,7 @@ const MyBookings = ({ navigation }) => {
           ItemSeparatorComponent={() => <Spacer isSmall />}
           ListHeaderComponent={() => <Spacer isBasic />}
           ListFooterComponent={() => <Spacer height={height(4)} />}
+          removeClippedSubviews={false}
         />
       </ComponentWrapper>
     </MainWrapper>

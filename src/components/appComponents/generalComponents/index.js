@@ -36,6 +36,7 @@ export const AccountTypes = ({ active, onPress }) => {
   return (
     <FlatList data={userTypes}
       ItemSeparatorComponent={() => <Spacer isBasic />}
+      removeClippedSubviews={false}
       renderItem={({ item, index }) => {
         const isActive = active === index;
 
@@ -345,6 +346,7 @@ export const SettingsList = ({ }) => {
       data={Settings}
       ItemSeparatorComponent={() => <Spacer isBasic />}
       ListHeaderComponent={() => <Spacer height={height(3)} />}
+      removeClippedSubviews={false}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity activeOpacity={0.8} onPress={() => HandlePress(item)} >
@@ -419,6 +421,7 @@ export const NotificationCategories = () => {
       data={notificationOptions}
       keyExtractor={(item) => item.key}
       renderItem={renderItem}
+      removeClippedSubviews={false}
       ListHeaderComponent={
         <MediumText style={styles.categoryTitle}>{"Common"}</MediumText>
       }
@@ -433,6 +436,7 @@ export const SelectVehicles = ({ onPressVevicle }) => {
       <FlatList
         data={VehiclesList}
         ItemSeparatorComponent={() => <Spacer isSmall />}
+        removeClippedSubviews={false}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity activeOpacity={0.8} onPress={() => onPressVevicle(item)} style={styles.vehicleBgWrapper}>
@@ -460,6 +464,7 @@ export const BookingsList = ({ onPressPhone, onPressChat }) => {
       ItemSeparatorComponent={() => <Spacer isSmall />}
       ListHeaderComponent={() => <Spacer isBasic />}
       ListFooterComponent={() => <Spacer height={height(4)} />}
+      removeClippedSubviews={false}
       renderItem={() => {
         return (
           <BookingCard onPressPhone={onPressPhone} onPressChat={onPressChat} />
@@ -541,6 +546,7 @@ export const DriverSettingsList = ({ }) => {
       data={DriverSettings}
       ItemSeparatorComponent={() => <Spacer isBasic />}
       ListHeaderComponent={() => <Spacer height={height(3)} />}
+      removeClippedSubviews={false}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity activeOpacity={0.8} onPress={() => handlePressSetting(item)} >
@@ -569,6 +575,7 @@ export const YourOrderHistory = ({ onPressCard, history }) => {
         ListHeaderComponent={() => <Spacer isBasic />}
         ItemSeparatorComponent={<Spacer isSmall />}
         ListFooterComponent={<Spacer isBasic />}
+        removeClippedSubviews={false}
         renderItem={({ item }) => {
           return (
             <ComponentWrapper>
@@ -620,6 +627,7 @@ export const ReviewList = ({
         <Hrline style={styles.reviewSepratorLine} />
       )}
       ListHeaderComponent={() => <Spacer height={height(3)} />}
+      removeClippedSubviews={false}
       renderItem={({ item }) => (
         <Wrapper>
           <RowWrapper>
