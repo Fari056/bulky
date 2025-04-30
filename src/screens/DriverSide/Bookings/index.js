@@ -51,6 +51,7 @@ const Bookings = ({ navigation }) => {
             ListEmptyComponent={renderEmptyBookings}
             ItemSeparatorComponent={<Spacer isSmall />}
             ListFooterComponent={<Spacer isBasic />}
+            removeClippedSubviews={false}
             renderItem={({ item }) => {
               const user = item.user || {};
               return (

@@ -44,6 +44,7 @@ const SelectPaymentMethods = ({ navigation, route }) => {
                 ListHeaderComponent={() => <Spacer isSmall />}
                 ListFooterComponent={() => <Spacer height={height(7)} />}
                 keyExtractor={item => item.id}
+                removeClippedSubviews={false}
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity activeOpacity={0.9} style={styles.paymentWrapper} >

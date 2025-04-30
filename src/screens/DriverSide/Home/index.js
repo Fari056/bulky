@@ -137,6 +137,7 @@ const Home = ({ navigation }) => {
           ListFooterComponent={<Spacer isBasic />}
           renderItem={renderBookingItem}
           extraData={bookings}
+          removeClippedSubviews={false}
         />
       </Wrapper>
     </MainWrapper>

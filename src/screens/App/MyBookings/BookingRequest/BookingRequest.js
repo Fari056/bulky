@@ -34,6 +34,7 @@ const BookingRequest = ({ navigation }) => {
           <FlatList
             ListHeaderComponent={<Spacer isSmall />}
             data={bookings}
+            removeClippedSubviews={false}
             renderItem={({ item, index }) => (
               <BookingRequestCard
                 key={index}

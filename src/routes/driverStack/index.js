@@ -33,7 +33,7 @@ const MyTabs = () => {
           <Tab.Screen key={index} name={item?.screen} component={item.component}
             options={() => ({
               tabBarIcon: ({ color }) => (
-                item?.profilePhoto ? <Avatar source={{ uri: user_redux?.photo ?? Images.user2 }} size={totalSize(3)} /> :
+                item?.profilePhoto ? <Avatar resizeMode={'cover'} source={{ uri: user_redux?.photo?.length > 0 ? user_redux?.photo : Images.user2 }} size={totalSize(3)} /> :
                   <Icon name={item?.iconName} type={item?.iconType} color={color} />
                 // item?.iconName == 'home' ? <HomeTab color={color} /> : item?.iconName == 'history' ? <JobHistoryTab color={color} /> : item?.iconName == 'notification' ? <NotificationTab color={color} /> : <ProfileTab color={color} />
               ),

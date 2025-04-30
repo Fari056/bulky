@@ -9,6 +9,7 @@ const TransactionList = ({ userName = 'User Name', transId = '0817239419528913',
     return (
         <FlatList
             data={[1, 2, 3, 4, 5]}
+            removeClippedSubviews={false}
             ItemSeparatorComponent={() => <Spacer isBasic />}
             ListHeaderComponent={() => <MediumText style={styles.historyText}>Transaction History</MediumText>}
             renderItem={({ item }) => {

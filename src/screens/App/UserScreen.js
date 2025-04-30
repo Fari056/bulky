@@ -138,6 +138,7 @@ const DeliveryList = ({ navigation }) => {
                     renderItem={renderDeliveryItem}
                     keyExtractor={item => item.id}
                     contentContainerStyle={styles.list}
+                    removeClippedSubviews={false}
                 />
             </ComponentWrapper>
         </MainWrapper>

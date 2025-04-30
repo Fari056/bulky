@@ -91,6 +91,7 @@ const SelectedItems = ({ navigation, route }) => {
       </ComponentWrapper>
       <FlatList
         data={data}
+        removeClippedSubviews={false}
         renderItem={({ item }) => {
           return (
             <SelectedItemCard
